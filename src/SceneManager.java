@@ -22,7 +22,7 @@ public class SceneManager {
         HBox hbox = new HBox(5);
         bpane.setBottom(hbox);
 
-        Button btTest = new Button("Test Rate");
+        Button btTest = new Button("Create Bow");
         TestHandlerClass testhandle = new TestHandlerClass();
         btTest.setOnAction(testhandle);
         btTest.setPadding(new Insets(5));

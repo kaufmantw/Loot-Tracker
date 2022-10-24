@@ -28,13 +28,17 @@ public class SceneManager {
         btTest.setPadding(new Insets(5));
 
         Button btSwitch = new Button("Switch Scenes");
-        SwitchHandlerClass switchHandle = new SwitchHandlerClass(primaryStage, this, 1);
-        btSwitch.setOnAction(switchHandle);
+        //SwitchHandlerClass switchHandle = new SwitchHandlerClass(primaryStage, this, 1);
+        btSwitch.setOnAction(e ->{
+            submitScene(primaryStage);
+        });
         btSwitch.setPadding(new Insets(5));
 
         Button btCompare = new Button("Compare");
-        SwitchHandlerClass compareHandle = new SwitchHandlerClass(primaryStage, this, 2);
-        btCompare.setOnAction(compareHandle);
+        //SwitchHandlerClass compareHandle = new SwitchHandlerClass(primaryStage, this, 2);
+        btCompare.setOnAction(e -> {
+            compareScene(primaryStage);
+        });
         btCompare.setPadding(new Insets(5));
         
         
@@ -55,8 +59,10 @@ public class SceneManager {
         bpane.setCenter(t);
 
         Button btReturn = new Button("Return to main menu");
-        SwitchHandlerClass returnHandle = new SwitchHandlerClass(primaryStage, this, 0);
-        btReturn.setOnAction(returnHandle);
+        //SwitchHandlerClass returnHandle = new SwitchHandlerClass(primaryStage, this, 0);
+        btReturn.setOnAction(e ->{
+            startScene(primaryStage);
+        });
         bpane.setBottom(btReturn);
         bpane.setAlignment(btReturn, Pos.CENTER);
 
@@ -73,8 +79,10 @@ public class SceneManager {
         bpane.setCenter(t);
 
         Button btReturn = new Button("Return to main menu");
-        SwitchHandlerClass returnHandle = new SwitchHandlerClass(primaryStage, this, 0);
-        btReturn.setOnAction(returnHandle);
+        //SwitchHandlerClass returnHandle = new SwitchHandlerClass(primaryStage, this, 0);
+        btReturn.setOnAction(e -> {
+            startScene(primaryStage);
+        });
         bpane.setBottom(btReturn);
         bpane.setAlignment(btReturn, Pos.CENTER);
 

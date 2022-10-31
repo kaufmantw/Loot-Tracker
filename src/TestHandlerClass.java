@@ -1,11 +1,13 @@
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import items.*;
 
 public class TestHandlerClass implements EventHandler<ActionEvent> {
     private Loot obj;
     public TestHandlerClass(){
 
     }
+    //not currently implemented, lambdas replaced my sweet child.
     @Override
     public void handle(ActionEvent e){
         this.obj = new Twisted_Bow();

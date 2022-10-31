@@ -1,3 +1,4 @@
+package items;
 public class Twisted_Bow extends Loot{
     public static int count;
     

@@ -199,64 +199,7 @@ public class SceneManager {
         }
         count = 0;
 
-        /*
-         * for (iterator = 0; iterator < numItems; iterator++) {
-         * itemButtons[iterator].setOnAction(e -> {
-         * System.out.print(iterator);
-         * Loot loot;
-         * switch (iterator) {
-         * case 0:
-         * loot = new Ances_Bottom();
-         * break;
-         * case 1:
-         * loot = new Ances_Hat();
-         * break;
-         * case 2:
-         * loot = new Ances_Top();
-         * break;
-         * case 3:
-         * loot = new Arcane();
-         * break;
-         * case 4:
-         * loot = new Buckler();
-         * break;
-         * case 5:
-         * loot = new Claws();
-         * break;
-         * case 6:
-         * loot = new Dex();
-         * break;
-         * case 7:
-         * loot = new DHCB();
-         * break;
-         * case 8:
-         * loot = new Dinh();
-         * break;
-         * case 9:
-         * loot = new Elder_Maul();
-         * break;
-         * case 10:
-         * loot = new Kodai_Insignia();
-         * break;
-         * case 11:
-         * loot = new Twisted_Bow();
-         * break;
-         * case 12:
-         * loot = new Twisted_Bow();
-         * break;
-         * case 13:
-         * loot = new Twisted_Bow();
-         * break;
-         * case 14:
-         * loot = new Twisted_Bow();
-         * break;
-         * 
-         * }
-         * 
-         * });
-         * }
-         */
-
+        // Disabling the currently selected button
         for (int i = 0; i < itemButtons.length; i++) {
             Button active = itemButtons[i];
             active.setOnAction(e -> {
@@ -274,9 +217,65 @@ public class SceneManager {
             });
         }
 
+        submitButton.setOnAction(e -> {
+            // determining which item index is active
+            int currentItem = 0;
+            Loot loot;
+            for (int i = 0; i < itemButtons.length; i++) {
+                if (itemButtons[i] == selected) {
+                    currentItem = i;
+                }
+            }
+            switch (currentItem) {
+                case 0:
+                    loot = new Dex();
+                    break;
+                case 1:
+                    loot = new Arcane();
+                    break;
+                case 2:
+                    loot = new Buckler();
+                    break;
+                case 3:
+                    loot = new DHCB();
+                    break;
+                case 4:
+                    loot = new Dinh();
+                    break;
+                case 5:
+                    loot = new Ances_Hat();
+                    break;
+                case 6:
+                    loot = new Ances_Top();
+                    break;
+                case 7:
+                    loot = new Ances_Bottom();
+                    break;
+                case 8:
+                    loot = new Claws();
+                    break;
+                case 9:
+                    loot = new Elder_Maul();
+                    break;
+                case 10:
+                    loot = new Kodai_Insignia();
+                    break;
+                case 11:
+                    loot = new Twisted_Bow();
+                    break;
+                case 12:
+                    loot = new Olmlet();
+                    break;
+                case 13:
+                    loot = new Dust();
+                    break;
+
+            }
+        });
+
         Button btReturn = new Button("Return to main menu");
-        // SwitchHandlerClass returnHandle = new SwitchHandlerClass(primaryStage, this,
-        // 0);
+
+        // formality of the situation
         btReturn.setOnAction(e -> {
             startScene(primaryStage);
         });

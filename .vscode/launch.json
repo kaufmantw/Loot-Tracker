@@ -10,14 +10,14 @@
             "request": "launch",
             "mainClass": "App",
             "projectName": "Loot-Tracker_fc21c7e2",
-            "vmArgs": "--module-path C:\\Users\\justa\\Documents\\SFA_CLASSWORK\\CSCI_3331_-_Object_Oriented_Programming_Methods\\javafx-sdk-18.0.2\\lib --add-modules javafx.controls,javafx.fxml --enable-preview"
+            "vmArgs": "--module-path C:/Users/timka/Desktop/javafx-sdk-18.0.2/lib --add-modules javafx.controls,javafx.fxml --enable-preview"
         },
         {
             "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}",
-            "vmArgs": "--module-path C:\\Users\\justa\\Documents\\SFA_CLASSWORK\\CSCI_3331_-_Object_Oriented_Programming_Methods\\javafx-sdk-18.0.2\\lib --add-modules javafx.controls,javafx.fxml --enable-preview"
+            "vmArgs": "--module-path C:/Users/timka/Desktop/javafx-sdk-18.0.2/lib --add-modules javafx.controls,javafx.fxml --enable-preview"
         }
     ]
 }

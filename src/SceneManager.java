@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 public class SceneManager {
 
     // strings to initialize images
-    String precedingPath = "C:\\Users\\justa\\Documents\\SFA_CLASSWORK\\CSCI_3331_-_Object_Oriented_Programming_Methods\\Loot-Tracker\\bin\\images\\";
+    String precedingPath = "C:\\Users\\timka\\Documents\\code\\java\\OOP_Coursework\\Loot-Tracker\\bin\\images\\";
     String[] imagePaths = new String[] { "dps", "aps", "tb", "dhc", "db", "ah", "art", "arb", "dc", "em", "ki",
             "tbow", "o", "md" };
     String fileExtension = ".png";
@@ -347,10 +347,15 @@ public class SceneManager {
                 Ances_Top.count, Ances_Bottom.count, Claws.count, Elder_Maul.count, Kodai_Insignia.count,
                 Twisted_Bow.count, Olmlet.count, Dust.count };
 
+        String[] itemNames = new String[]{Dex.NAME, Arcane.NAME, Buckler.NAME, DHCB.NAME, Dinh.NAME, Ances_Hat.NAME,
+                Ances_Top.NAME, Ances_Bottom.NAME, Claws.NAME, Elder_Maul.NAME, Kodai_Insignia.NAME,
+                Twisted_Bow.NAME, Olmlet.NAME, Dust.NAME};
+
         XYChart.Data[] chartData = new XYChart.Data[numItems];
 
         for (int i = 0; i < numItems; i++) {
-            chartData[i] = new XYChart.Data("item " + i, itemCounts[i]);
+            //TODO: change item field to be more dynamic.
+            chartData[i] = new XYChart.Data<String, Integer>(itemNames[i] + " ", itemCounts[i]);
         }
 
         // Adding item to the chart
@@ -402,7 +407,9 @@ public class SceneManager {
             for (int j = 0; j < width; j++) {
                 if (count < numItems) {
                     // Image Creation
-                    Image image = new Image(precedingPath + imagePaths[count] + fileExtension);
+                    String temp = precedingPath.concat(imagePaths[count].concat(fileExtension));
+                    Image image = new Image(temp);
+                    //precedingPath + imagePaths[count] + fileExtension
                     ImageView imageView = new ImageView(image);
 
                     // Button Formatting

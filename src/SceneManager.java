@@ -1,3 +1,4 @@
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import items.*;
@@ -18,13 +19,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SceneManager {
 
     // strings to initialize images
-    String precedingPath = "C:\\Users\\justa\\Documents\\SFA_CLASSWORK\\CSCI_3331_-_Object_Oriented_Programming_Methods\\Loot-Tracker\\bin\\images\\";
+    String precedingPath = "C:\\Users\\timka\\Documents\\code\\java\\OOP_Coursework\\Loot-Tracker\\bin\\images\\";
     String[] imagePaths = new String[] { "dps", "aps", "tb", "dhc", "db", "ah", "art", "arb", "dc", "em", "ki",
             "tbow", "o", "md" };
     String fileExtension = ".png";
@@ -46,12 +48,12 @@ public class SceneManager {
     public void startScene(Stage primaryStage) {
         // Initial Pane Setup
         BorderPane bpane = new BorderPane();
-        Text welcome = new Text("Welcome to the loot tracker!");
-        bpane.setTop(welcome);
-        bpane.setAlignment(welcome, Pos.CENTER);
 
         HBox hbox = new HBox(5);
         bpane.setBottom(hbox);
+
+        StackPane spane = new StackPane();
+        bpane.setCenter(spane);
 
         Button btBow = new Button("Create Bow");
         TestHandlerClass testhandle = new TestHandlerClass();
@@ -91,11 +93,18 @@ public class SceneManager {
         });
         btSubmit.setPadding(new Insets(5));
 
+        Image scroll = new Image("C:\\Users\\timka\\Documents\\code\\java\\OOP_Coursework\\Loot-Tracker\\bin\\images\\osrsScroll.PNG");
+        ImageView view = new ImageView(scroll);
+        Font font = Font.loadFont("file:C:\\Users\\timka\\Documents\\code\\java\\OOP_Coursework\\Loot-Tracker\\bin\\fonts\\runescape_uf.ttf", 25);
+        Text welcome = new Text("Welcome to the loot tracker!");
+        welcome.setFont(font);
+        spane.getChildren().addAll(view, welcome);
+
         // Adding objects to scene and displaying scene
         hbox.getChildren().addAll(btBow, btKodai, btCompare, btSubmit);
         hbox.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(bpane, 400, 500);
+        Scene scene = new Scene(bpane, 600, 800);
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
@@ -347,10 +356,14 @@ public class SceneManager {
                 Ances_Top.count, Ances_Bottom.count, Claws.count, Elder_Maul.count, Kodai_Insignia.count,
                 Twisted_Bow.count, Olmlet.count, Dust.count };
 
+        String[] itemNames = new String[]{Dex.NAME, Arcane.NAME, Buckler.NAME, DHCB.NAME, Dinh.NAME, Ances_Hat.NAME,
+                Ances_Top.NAME, Ances_Bottom.NAME, Claws.NAME, Elder_Maul.NAME, Kodai_Insignia.NAME,
+                Twisted_Bow.NAME, Olmlet.NAME, Dust.NAME};
+
         XYChart.Data[] chartData = new XYChart.Data[numItems];
 
         for (int i = 0; i < numItems; i++) {
-            chartData[i] = new XYChart.Data("item " + i, itemCounts[i]);
+            chartData[i] = new XYChart.Data<String, Integer>(itemNames[i] + " ", itemCounts[i]);
         }
 
         // Adding item to the chart
@@ -402,7 +415,9 @@ public class SceneManager {
             for (int j = 0; j < width; j++) {
                 if (count < numItems) {
                     // Image Creation
-                    Image image = new Image(precedingPath + imagePaths[count] + fileExtension);
+                    String temp = precedingPath.concat(imagePaths[count].concat(fileExtension));
+                    Image image = new Image(temp);
+                    //precedingPath + imagePaths[count] + fileExtension
                     ImageView imageView = new ImageView(image);
 
                     // Button Formatting

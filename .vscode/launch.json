@@ -2,6 +2,9 @@
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+
+    //tim path: "--module-path C:/Users/timka/Desktop/javafx-sdk-18.0.2/lib --add-modules javafx.controls,javafx.fxml --enable-preview"
+    //mikey path:"--module-path C:/Users/justa/Documents/SFA_CLASSWORK/CSCI_3331_-_Object_Oriented_Programming_Methods/javafx-sdk-18.0.2/lib --add-modules javafx.controls,javafx.fxml --enable-preview"
     "version": "0.2.0",
     "configurations": [
         {
@@ -9,8 +12,8 @@
             "name": "Launch App",
             "request": "launch",
             "mainClass": "App",
-            "projectName": "Loot-Tracker_40374825",
-            "vmArgs": "--module-path C:/Users/timka/Desktop/javafx-sdk-18.0.2/lib --add-modules javafx.controls,javafx.fxml --enable-preview"
+            "projectName": "Loot-Tracker_fc21c7e2",
+            "vmArgs": "--module-path C:/Users/justa/Documents/SFA_CLASSWORK/CSCI_3331_-_Object_Oriented_Programming_Methods/javafx-sdk-18.0.2/lib --add-modules javafx.controls,javafx.fxml --enable-preview"
         },
         {
             "type": "java",
@@ -18,14 +21,22 @@
             "request": "launch",
             "mainClass": "App",
             "projectName": "Loot-Tracker_40374825",
-            "vmArgs": "--module-path C:/Users/timka/Desktop/javafx-sdk-18.0.2/lib --add-modules javafx.controls,javafx.fxml --enable-preview"
+            "vmArgs": "--module-path C:/Users/justa/Documents/SFA_CLASSWORK/CSCI_3331_-_Object_Oriented_Programming_Methods/javafx-sdk-18.0.2/lib --add-modules javafx.controls,javafx.fxml --enable-preview"
+        },
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "Loot-Tracker_40374825",
+            "vmArgs": "--module-path C:/Users/justa/Documents/SFA_CLASSWORK/CSCI_3331_-_Object_Oriented_Programming_Methods/javafx-sdk-18.0.2/lib --add-modules javafx.controls,javafx.fxml --enable-preview"
         },
         {
             "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}",
-            "vmArgs": "--module-path C:/Users/timka/Desktop/javafx-sdk-18.0.2/lib --add-modules javafx.controls,javafx.fxml --enable-preview"
+            "vmArgs": "--module-path C:/Users/justa/Documents/SFA_CLASSWORK/CSCI_3331_-_Object_Oriented_Programming_Methods/javafx-sdk-18.0.2/lib --add-modules javafx.controls,javafx.fxml --enable-preview"
         }
     ]
 }

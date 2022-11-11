@@ -6,16 +6,15 @@ import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.stage.*;
 
-
-public class App extends Application{
+public class App extends Application {
     @Override
-    public void start(Stage primaryStage){
+    public void start(Stage primaryStage) {
         SceneManager smanage = new SceneManager();
         smanage.startScene(primaryStage);
 
     }
 
-    public static void main(String [] args){
+    public static void main(String[] args) {
         launch(args);
     }
 }

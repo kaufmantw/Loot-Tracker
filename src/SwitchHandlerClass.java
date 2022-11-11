@@ -12,22 +12,14 @@ public class SwitchHandlerClass implements EventHandler<ActionEvent> {
     private SceneManager manage;
     private int cases;
 
-    public SwitchHandlerClass(Stage primaryStage, SceneManager smanage, int cases){
+    public SwitchHandlerClass(Stage primaryStage, SceneManager smanage, int cases) {
         this.stage = primaryStage;
         this.manage = smanage;
         this.cases = cases;
     }
+
     @Override
-    public void handle(ActionEvent e){
-        if(cases == 0){
-            manage.startScene(stage);
-        }
-        if(cases == 1){
-            manage.submitScene(stage);
-        }
-        if(cases == 2){
-            manage.compareScene(stage);
-        }
+    public void handle(ActionEvent e) {
 
     }
 }

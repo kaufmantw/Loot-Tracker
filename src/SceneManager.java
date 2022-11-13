@@ -41,8 +41,10 @@ public class SceneManager {
 
     int iterator = 0;
 
-    public SceneManager() {
+    SheetManager sm;
 
+    public SceneManager() {
+        this.sm = new SheetManager();
     }
 
     public void startScene(Stage primaryStage) {
@@ -55,6 +57,12 @@ public class SceneManager {
         StackPane spane = new StackPane();
         bpane.setCenter(spane);
 
+        Button btnList = new Button("Print List");
+        btnList.setOnAction(e ->{
+            this.sm.printList();
+        });
+        //commenting out the temp object creation buttons.
+        /*
         Button btBow = new Button("Create Bow");
         TestHandlerClass testhandle = new TestHandlerClass();
 
@@ -77,7 +85,7 @@ public class SceneManager {
             System.out.println();
         });
         btKodai.setPadding(new Insets(5));
-
+        */
         // Button to swap to the comparison stage
         Button btCompare = new Button("Compare");
         // SwitchHandlerClass compareHandle = new SwitchHandlerClass(primaryStage, this,
@@ -101,7 +109,8 @@ public class SceneManager {
         spane.getChildren().addAll(view, welcome);
 
         // Adding objects to scene and displaying scene
-        hbox.getChildren().addAll(btBow, btKodai, btCompare, btSubmit);
+        //re-add temp obj buttons as needed.
+        hbox.getChildren().addAll(btnList, btCompare, btSubmit);
         hbox.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(bpane, 600, 800);
@@ -201,7 +210,6 @@ public class SceneManager {
         submitButton.setOnAction(e -> {
             // determining which item index is active
             int currentItem = 0;
-            Loot loot;
             for (int i = 0; i < itemButtons.length; i++) {
                 if (itemButtons[i] == selected) {
                     currentItem = i;
@@ -209,46 +217,60 @@ public class SceneManager {
             }
             switch (currentItem) {
                 case 0:
-                    loot = new Dex();
+                    sm.items.add(new Dex(Integer.parseInt(killCountField.getText()), 
+                                    personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 1:
-                    loot = new Arcane();
+                    sm.items.add(new Arcane(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 2:
-                    loot = new Buckler();
+                    sm.items.add(new Buckler(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 3:
-                    loot = new DHCB();
+                    sm.items.add(new DHCB(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 4:
-                    loot = new Dinh();
+                    sm.items.add(new Dinh(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 5:
-                    loot = new Ances_Hat();
+                    sm.items.add(new Ances_Hat(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 6:
-                    loot = new Ances_Top();
+                    sm.items.add(new Ances_Top(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 7:
-                    loot = new Ances_Bottom();
+                    sm.items.add(new Ances_Bottom(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 8:
-                    loot = new Claws();
+                    sm.items.add(new Claws(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 9:
-                    loot = new Elder_Maul();
+                    sm.items.add(new Elder_Maul(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 10:
-                    loot = new Kodai_Insignia();
+                    sm.items.add(new Kodai_Insignia(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 11:
-                    loot = new Twisted_Bow();
+                    sm.items.add(new Twisted_Bow(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 12:
-                    loot = new Olmlet();
+                    sm.items.add(new Olmlet(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 13:
-                    loot = new Dust();
+                    sm.items.add(new Dust(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
 
             }

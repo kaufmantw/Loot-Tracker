@@ -1,5 +1,7 @@
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -15,7 +17,6 @@ public class SheetManager{
         items = new ArrayList<>();
         this.sheet = new File("C:\\Users\\timka\\Documents\\code\\java\\OOP_Coursework\\Loot-Tracker\\bin\\sheets\\TempSheet.csv");
         fillList();
-        printList();
     }
 
     public void fillList(){
@@ -24,28 +25,33 @@ public class SheetManager{
         boolean isPersonal;
         boolean isSolo;
         try{
-            Scanner fin = new Scanner(this.sheet);
-            fin.useDelimiter(",");
-            while(fin.hasNextLine()){
-                name = fin.next();
-                System.out.print(name + " ");
-                kc = fin.nextInt();
-                System.out.print(kc + " ");
-                if(fin.next().equalsIgnoreCase("YES")){
+            String line = "";
+            String delimit = ",";
+            BufferedReader br = new BufferedReader(new FileReader(this.sheet));
+            //this while loop creates one object per line in the CSV file.
+            while((line = br.readLine()) != null){
+                String[] read = line.split(delimit);
+                name = read[0];
+                //System.out.print(name + " ");
+                kc = Integer.parseInt(read[1]);
+                //System.out.print(kc + " ");
+                if(read[2].equalsIgnoreCase("YES")){
                     isPersonal = true;
                 }
                 else{
                     isPersonal = false;
                 }
-                System.out.print(isPersonal + " ");
-                if(fin.next().equalsIgnoreCase("YES")){
+                //System.out.print(isPersonal + " ");
+
+                if(read[3].equalsIgnoreCase("YES")){
                     isSolo = true;
                 }
                 else{
                     isSolo = false;
                 }
-                System.out.print(isSolo + " ");
+                //System.out.print(isSolo + " ");
 
+                //This switch statement creates the correct Loot Object to go into our list.
                 switch(name){
 
                 case "Dexterous Prayer Scroll":
@@ -105,14 +111,17 @@ public class SheetManager{
                     break;
 
                 }
-                System.out.println();
-                fin.nextLine();
+                //System.out.println();
 
             }
-            fin.close();
+            br.close();
         }
         catch(FileNotFoundException e){
             System.out.println("Fix the file path dumbass.");
+        }
+
+        catch(IOException e){
+            System.out.println("Fix the file dumbass.");
         }
     }
 

@@ -26,7 +26,7 @@ import javafx.stage.Stage;
 public class SceneManager {
 
     // strings to initialize images
-    String precedingPath = "C:\\Users\\timka\\Documents\\code\\java\\OOP_Coursework\\Loot-Tracker\\bin\\images\\";
+    String precedingPath = "\\images\\";
     String[] imagePaths = new String[] { "dps", "aps", "tb", "dhc", "db", "ah", "art", "arb", "dc", "em", "ki",
             "tbow", "o", "md" };
     String fileExtension = ".png";
@@ -87,10 +87,10 @@ public class SceneManager {
         });
         btSubmit.setPadding(new Insets(5));
 
-        Image scroll = new Image("C:\\Users\\timka\\Documents\\code\\java\\OOP_Coursework\\Loot-Tracker\\bin\\images\\osrsScroll.PNG");
+        Image scroll = new Image("\\images\\osrsScroll.PNG");
         ImageView view = new ImageView(scroll);
         Font font = Font.loadFont(
-                "file:C:\\Users\\timka\\Documents\\code\\java\\OOP_Coursework\\Loot-Tracker\\bin\\fonts\\runescape_uf.ttf",
+                "file:bin\\fonts\\runescape_uf.ttf",
                 25);
         Text welcome = new Text("Welcome to the loot tracker!");
         welcome.setFont(font);

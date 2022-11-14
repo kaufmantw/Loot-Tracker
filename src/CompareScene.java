@@ -24,6 +24,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class CompareScene extends SceneManager {
+
+    public CompareScene(SheetManager sm){
+        super(sm);
+    }
     public void compareScene(Stage primaryStage) {
 
         // Initializing pane for the comparison scene

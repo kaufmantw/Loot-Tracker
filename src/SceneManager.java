@@ -26,7 +26,7 @@ import javafx.stage.Stage;
 public class SceneManager {
 
     // strings to initialize images
-    String precedingPath = "C:\\Users\\justa\\Documents\\SFA_CLASSWORK\\CSCI_3331_-_Object_Oriented_Programming_Methods\\Loot-Tracker\\bin\\images\\";
+    String precedingPath = "\\images\\";
     String[] imagePaths = new String[] { "dps", "aps", "tb", "dhc", "db", "ah", "art", "arb", "dc", "em", "ki",
             "tbow", "o", "md" };
     String fileExtension = ".png";
@@ -42,8 +42,10 @@ public class SceneManager {
     SubmitScene sscene;
     CompareScene cscene;
 
-    public SceneManager() {
+    SheetManager sm;
 
+    public SceneManager(SheetManager sm) {
+        this.sm = sm;
     }
 
     public void startScene(Stage primaryStage) {
@@ -56,30 +58,17 @@ public class SceneManager {
         StackPane spane = new StackPane();
         bpane.setCenter(spane);
 
-        Button btBow = new Button("Create Bow");
-        TestHandlerClass testhandle = new TestHandlerClass();
-
-        // Buttons interactions to add objects
-        btBow.setOnAction(e -> {
-            Twisted_Bow k = new Twisted_Bow();
-            System.out.println("The loot has a rate of: " + k.getRate());
-            System.out.println("There are now: " + Twisted_Bow.count + " Twisted Bows.");
-            System.out.println();
+        Button btnList = new Button("Print List");
+        btnList.setOnAction(e ->{
+            this.sm.printList();
         });
-        btBow.setPadding(new Insets(5));
 
-        Button btKodai = new Button("Create Kodai");
-        // SwitchHandlerClass switchHandle = new SwitchHandlerClass(primaryStage, this,
-        // 1);
-        btKodai.setOnAction(e -> {
-            Kodai_Insignia k = new Kodai_Insignia();
-            System.out.println("The loot has a rate of: " + k.getRate());
-            System.out.println("There are now: " + Kodai_Insignia.count + " Kodai Insignias.");
-            System.out.println();
+        Button btnCount = new Button("Print Counts");
+        btnCount.setOnAction(e ->{
+            this.sm.printCounts();
         });
-        btKodai.setPadding(new Insets(5));
 
-        cscene = new CompareScene();
+        cscene = new CompareScene(sm);
 
         // Button to swap to the comparison stage
         Button btCompare = new Button("Compare");
@@ -90,7 +79,7 @@ public class SceneManager {
         });
         btCompare.setPadding(new Insets(5));
 
-        sscene = new SubmitScene();
+        sscene = new SubmitScene(sm);
 
         Button btSubmit = new Button("Submit");
         btSubmit.setOnAction(e -> {
@@ -98,18 +87,17 @@ public class SceneManager {
         });
         btSubmit.setPadding(new Insets(5));
 
-        Image scroll = new Image(
-                "C:\\Users\\justa\\Documents\\SFA_CLASSWORK\\CSCI_3331_-_Object_Oriented_Programming_Methods\\Loot-Tracker\\bin\\images\\osrsScroll.png");
+        Image scroll = new Image("\\images\\osrsScroll.PNG");
         ImageView view = new ImageView(scroll);
         Font font = Font.loadFont(
-                "file:C:\\Users\\justa\\Documents\\SFA_CLASSWORK\\CSCI_3331_-_Object_Oriented_Programming_Methods\\Loot-Tracker\\bin\\fonts\\runescape_uf.ttf",
+                "file:bin\\fonts\\runescape_uf.ttf",
                 25);
         Text welcome = new Text("Welcome to the loot tracker!");
         welcome.setFont(font);
         spane.getChildren().addAll(view, welcome);
 
         // Adding objects to scene and displaying scene
-        hbox.getChildren().addAll(btBow, btKodai, btCompare, btSubmit);
+        hbox.getChildren().addAll(btnCount, btnList, btCompare, btSubmit);
         hbox.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(bpane, 600, 800);

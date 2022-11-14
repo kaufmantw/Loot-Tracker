@@ -9,7 +9,8 @@ import javafx.stage.*;
 public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
-        SceneManager smanage = new SceneManager();
+        SheetManager sm = new SheetManager();
+        SceneManager smanage = new SceneManager(sm);
         smanage.startScene(primaryStage);
 
     }

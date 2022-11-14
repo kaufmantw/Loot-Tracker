@@ -44,8 +44,8 @@ public class SceneManager {
 
     SheetManager sm;
 
-    public SceneManager() {
-        sm = new SheetManager();
+    public SceneManager(SheetManager sm) {
+        this.sm = sm;
     }
 
     public void startScene(Stage primaryStage) {
@@ -62,33 +62,13 @@ public class SceneManager {
         btnList.setOnAction(e ->{
             this.sm.printList();
         });
-        //commenting out the temp object creation buttons.
-        /*
-        Button btBow = new Button("Create Bow");
-        TestHandlerClass testhandle = new TestHandlerClass();
 
-        // Buttons interactions to add objects
-        btBow.setOnAction(e -> {
-            Twisted_Bow k = new Twisted_Bow();
-            System.out.println("The loot has a rate of: " + k.getRate());
-            System.out.println("There are now: " + Twisted_Bow.count + " Twisted Bows.");
-            System.out.println();
+        Button btnCount = new Button("Print Counts");
+        btnCount.setOnAction(e ->{
+            this.sm.printCounts();
         });
-        btBow.setPadding(new Insets(5));
 
-        Button btKodai = new Button("Create Kodai");
-        // SwitchHandlerClass switchHandle = new SwitchHandlerClass(primaryStage, this,
-        // 1);
-        btKodai.setOnAction(e -> {
-            Kodai_Insignia k = new Kodai_Insignia();
-            System.out.println("The loot has a rate of: " + k.getRate());
-            System.out.println("There are now: " + Kodai_Insignia.count + " Kodai Insignias.");
-            System.out.println();
-        });
-        btKodai.setPadding(new Insets(5));
-        */
-
-        cscene = new CompareScene(this.sm);
+        cscene = new CompareScene(sm);
 
         // Button to swap to the comparison stage
         Button btCompare = new Button("Compare");
@@ -99,7 +79,7 @@ public class SceneManager {
         });
         btCompare.setPadding(new Insets(5));
 
-        sscene = new SubmitScene(this.sm);
+        sscene = new SubmitScene(sm);
 
         Button btSubmit = new Button("Submit");
         btSubmit.setOnAction(e -> {
@@ -110,14 +90,14 @@ public class SceneManager {
         Image scroll = new Image("C:\\Users\\timka\\Documents\\code\\java\\OOP_Coursework\\Loot-Tracker\\bin\\images\\osrsScroll.PNG");
         ImageView view = new ImageView(scroll);
         Font font = Font.loadFont(
-                "C:\\Users\\timka\\Documents\\code\\java\\OOP_Coursework\\Loot-Tracker\\bin\\fonts\\runescape_uf.ttf",
+                "file:C:\\Users\\timka\\Documents\\code\\java\\OOP_Coursework\\Loot-Tracker\\bin\\fonts\\runescape_uf.ttf",
                 25);
         Text welcome = new Text("Welcome to the loot tracker!");
         welcome.setFont(font);
         spane.getChildren().addAll(view, welcome);
 
         // Adding objects to scene and displaying scene
-        hbox.getChildren().addAll(btnList, btCompare, btSubmit);
+        hbox.getChildren().addAll(btnCount, btnList, btCompare, btSubmit);
         hbox.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(bpane, 600, 800);

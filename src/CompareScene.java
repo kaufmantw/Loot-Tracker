@@ -24,10 +24,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class CompareScene extends SceneManager {
-    SheetManager sm;
 
     public CompareScene(SheetManager sm){
-        this.sm = sm;
+        super(sm);
     }
     public void compareScene(Stage primaryStage) {
 

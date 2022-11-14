@@ -24,10 +24,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SubmitScene extends SceneManager { 
-    SheetManager sm;
 
     public SubmitScene(SheetManager sm) {
-        this.sm = sm;
+        super(sm);
     }
 
     public void submitScene(Stage primaryStage) {

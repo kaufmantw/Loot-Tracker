@@ -131,4 +131,23 @@ public class SheetManager{
                                 items.get(i).isPersonal() + " " + items.get(i).isSolo());
         }
     }
+
+    public void printCounts(){
+        System.out.println("Dexterous Prayer scrolls: " + Dex.count);
+        System.out.println("Arcane Prayer scrolls: " + Arcane.count);
+        System.out.println("Dinhs Bulwark: " + Dinh.count);
+        System.out.println("Ances Bottoms: " + Ances_Bottom.count);
+        System.out.println("Ances Top: " + Ances_Top.count);
+        System.out.println("Ances Hat: " + Ances_Hat.count);
+        System.out.println("Dragon Claws: " + Claws.count);
+        System.out.println("Buckler: " + Buckler.count);
+        System.out.println("DHCB: " + DHCB.count);
+        System.out.println("Elder Mauls: " + Elder_Maul.count);
+        System.out.println("Kodais: " + Kodai_Insignia.count);
+        System.out.println("Twisted Bows: " + Twisted_Bow.count);
+        System.out.println("Olmlet: " + Olmlet.count);
+        System.out.println("Dust: " + Dust.count);
+        System.out.println();
+
+    }
 }

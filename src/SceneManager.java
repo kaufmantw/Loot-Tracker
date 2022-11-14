@@ -26,7 +26,7 @@ import javafx.stage.Stage;
 public class SceneManager {
 
     // strings to initialize images
-    String precedingPath = "C:\\Users\\justa\\Documents\\SFA_CLASSWORK\\CSCI_3331_-_Object_Oriented_Programming_Methods\\Loot-Tracker\\bin\\images\\";
+    String precedingPath = "C:\\Users\\timka\\Documents\\code\\java\\OOP_Coursework\\Loot-Tracker\\bin\\images\\";
     String[] imagePaths = new String[] { "dps", "aps", "tb", "dhc", "db", "ah", "art", "arb", "dc", "em", "ki",
             "tbow", "o", "md" };
     String fileExtension = ".png";
@@ -42,8 +42,10 @@ public class SceneManager {
     SubmitScene sscene;
     CompareScene cscene;
 
-    public SceneManager() {
+    SheetManager sm;
 
+    public SceneManager() {
+        sm = new SheetManager();
     }
 
     public void startScene(Stage primaryStage) {
@@ -56,6 +58,12 @@ public class SceneManager {
         StackPane spane = new StackPane();
         bpane.setCenter(spane);
 
+        Button btnList = new Button("Print List");
+        btnList.setOnAction(e ->{
+            this.sm.printList();
+        });
+        //commenting out the temp object creation buttons.
+        /*
         Button btBow = new Button("Create Bow");
         TestHandlerClass testhandle = new TestHandlerClass();
 
@@ -78,8 +86,9 @@ public class SceneManager {
             System.out.println();
         });
         btKodai.setPadding(new Insets(5));
+        */
 
-        cscene = new CompareScene();
+        cscene = new CompareScene(this.sm);
 
         // Button to swap to the comparison stage
         Button btCompare = new Button("Compare");
@@ -90,7 +99,7 @@ public class SceneManager {
         });
         btCompare.setPadding(new Insets(5));
 
-        sscene = new SubmitScene();
+        sscene = new SubmitScene(this.sm);
 
         Button btSubmit = new Button("Submit");
         btSubmit.setOnAction(e -> {
@@ -98,18 +107,17 @@ public class SceneManager {
         });
         btSubmit.setPadding(new Insets(5));
 
-        Image scroll = new Image(
-                "C:\\Users\\justa\\Documents\\SFA_CLASSWORK\\CSCI_3331_-_Object_Oriented_Programming_Methods\\Loot-Tracker\\bin\\images\\osrsScroll.png");
+        Image scroll = new Image("C:\\Users\\timka\\Documents\\code\\java\\OOP_Coursework\\Loot-Tracker\\bin\\images\\osrsScroll.PNG");
         ImageView view = new ImageView(scroll);
         Font font = Font.loadFont(
-                "file:C:\\Users\\justa\\Documents\\SFA_CLASSWORK\\CSCI_3331_-_Object_Oriented_Programming_Methods\\Loot-Tracker\\bin\\fonts\\runescape_uf.ttf",
+                "C:\\Users\\timka\\Documents\\code\\java\\OOP_Coursework\\Loot-Tracker\\bin\\fonts\\runescape_uf.ttf",
                 25);
         Text welcome = new Text("Welcome to the loot tracker!");
         welcome.setFont(font);
         spane.getChildren().addAll(view, welcome);
 
         // Adding objects to scene and displaying scene
-        hbox.getChildren().addAll(btBow, btKodai, btCompare, btSubmit);
+        hbox.getChildren().addAll(btnList, btCompare, btSubmit);
         hbox.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(bpane, 600, 800);

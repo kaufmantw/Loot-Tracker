@@ -23,9 +23,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class SubmitScene extends SceneManager {
+public class SubmitScene extends SceneManager { 
+    SheetManager sm;
 
-    public SubmitScene() {
+    public SubmitScene(SheetManager sm) {
+        this.sm = sm;
     }
 
     public void submitScene(Stage primaryStage) {
@@ -118,7 +120,6 @@ public class SubmitScene extends SceneManager {
         submitButton.setOnAction(e -> {
             // determining which item index is active
             int currentItem = 0;
-            Loot loot;
             for (int i = 0; i < itemButtons.length; i++) {
                 if (itemButtons[i] == selected) {
                     currentItem = i;
@@ -126,46 +127,60 @@ public class SubmitScene extends SceneManager {
             }
             switch (currentItem) {
                 case 0:
-                    loot = new Dex();
+                    sm.items.add(new Dex(Integer.parseInt(killCountField.getText()), 
+                                    personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 1:
-                    loot = new Arcane();
+                    sm.items.add(new Arcane(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 2:
-                    loot = new Buckler();
+                    sm.items.add(new Buckler(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 3:
-                    loot = new DHCB();
+                    sm.items.add(new DHCB(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 4:
-                    loot = new Dinh();
+                    sm.items.add(new Dinh(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 5:
-                    loot = new Ances_Hat();
+                    sm.items.add(new Ances_Hat(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 6:
-                    loot = new Ances_Top();
+                    sm.items.add(new Ances_Top(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 7:
-                    loot = new Ances_Bottom();
+                    sm.items.add(new Ances_Bottom(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 8:
-                    loot = new Claws();
+                    sm.items.add(new Claws(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 9:
-                    loot = new Elder_Maul();
+                    sm.items.add(new Elder_Maul(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 10:
-                    loot = new Kodai_Insignia();
+                    sm.items.add(new Kodai_Insignia(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 11:
-                    loot = new Twisted_Bow();
+                    sm.items.add(new Twisted_Bow(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 12:
-                    loot = new Olmlet();
+                    sm.items.add(new Olmlet(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
                 case 13:
-                    loot = new Dust();
+                    sm.items.add(new Dust(Integer.parseInt(killCountField.getText()), 
+                                        personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                     break;
 
             }

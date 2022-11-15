@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,11 +16,20 @@ import items.*;
 public class SheetManager{
 
     ArrayList<Loot> items;
-    File sheet;
+    File saveSheet;
+    File copySheet;
 
     public SheetManager(){
         items = new ArrayList<>();
-        this.sheet = new File(".\\bin\\sheets\\TempSheet.csv");
+        this.saveSheet = new File(".\\bin\\sheets\\SaveSheet.csv");
+        this.copySheet = new File(".\\bin\\sheets\\CopySheet.csv");
+        try{
+            emptyCopy();
+        }
+        catch(IOException e){
+            e.getMessage();
+        }
+        
         fillList();
     }
 
@@ -31,7 +41,7 @@ public class SheetManager{
         try{
             String line = "";
             String delimit = ",";
-            BufferedReader br = new BufferedReader(new FileReader(this.sheet));
+            BufferedReader br = new BufferedReader(new FileReader(this.saveSheet));
             //this while loop creates one object per line in the CSV file.
             while((line = br.readLine()) != null){
                 String[] read = line.split(delimit);
@@ -159,9 +169,15 @@ public class SheetManager{
     public void makeCopy()throws IOException{
         
 
-        Path readPath = (Paths.get(".\\bin\\sheets\\TempSheet.csv")).normalize();
+        Path readPath = (Paths.get(".\\bin\\sheets\\SaveSheet.csv")).normalize();
         List<String> lines = Files.readAllLines(readPath);
         Path writePath = Paths.get(".\\bin\\sheets\\CopySheet.csv");
         Files.write(writePath, lines, StandardOpenOption.APPEND);
+    }
+
+    public void emptyCopy()throws IOException{
+        FileWriter fw = new FileWriter(".\\bin\\sheets\\CopySheet.csv", false);
+        fw.write("");
+        fw.close();
     }
 }

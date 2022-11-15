@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 
 import items.*;
@@ -25,11 +26,12 @@ public class SheetManager{
         this.copySheet = new File(".\\bin\\sheets\\CopySheet.csv");
         try{
             emptyCopy();
+            makeCopy();
         }
         catch(IOException e){
             e.getMessage();
         }
-        
+
         fillList();
     }
 
@@ -66,65 +68,84 @@ public class SheetManager{
                 //System.out.print(isSolo + " ");
 
                 //This switch statement creates the correct Loot Object to go into our list.
+                Loot temp;
                 switch(name){
 
                 case "Dexterous Prayer Scroll":
-                    items.add(new Dex(kc, isPersonal, isSolo));
+                    temp = new Dex(kc, isPersonal, isSolo);
+                    items.add(temp);
                     break;
                 
                 case "Arcane Prayer Scroll":
-                    items.add(new Arcane(kc, isPersonal, isSolo));
+                    temp = new Arcane(kc, isPersonal, isSolo);
+                    items.add(temp);
                     break;
 
                 case "Ancestral Robe Bottoms":
-                    items.add(new Ances_Bottom(kc, isPersonal, isSolo));
+                    temp = new Ances_Bottom(kc, isPersonal, isSolo);
+                    items.add(temp);
                     break;
 
                 case "Ancestral Robe Top":
-                    items.add(new Ances_Top(kc, isPersonal, isSolo));
+                    temp = new Ances_Top(kc, isPersonal, isSolo);
+                    items.add(temp);
                     break;
 
                 case "Ancestral Hat":
-                    items.add(new Ances_Hat(kc, isPersonal, isSolo));
+                    temp = new Ances_Hat(kc, isPersonal, isSolo);
+                    items.add(temp);
                     break;
 
                 case "Twisted Buckler":
-                    items.add(new Buckler(kc, isPersonal, isSolo));
+                    temp = new Buckler(kc, isPersonal, isSolo);
+                    items.add(temp);
                     break;
 
                 case "Dragon hunter Crossbow":
-                    items.add(new DHCB(kc, isPersonal, isSolo));
+                    temp = new DHCB(kc, isPersonal, isSolo);
+                    items.add(temp);
                     break;
 
                 case "Dinh's Bulwark":
-                    items.add(new Dinh(kc, isPersonal, isSolo));
+                    temp = new Dinh(kc, isPersonal, isSolo);
+                    items.add(temp);
                     break;
 
                 case "Dragon Claws":
-                    items.add(new Claws(kc, isPersonal, isSolo));
+                    temp = new Claws(kc, isPersonal, isSolo);
+                    items.add(temp);
                     break;
 
                 case "Elder Maul":
-                    items.add(new Elder_Maul(kc, isPersonal, isSolo));
+                    temp = new Elder_Maul(kc, isPersonal, isSolo);
+                    items.add(temp);
                     break;
 
                 case "Kodai Insignia":
-                    items.add(new Kodai_Insignia(kc, isPersonal, isSolo));
+                    temp = new Kodai_Insignia(kc, isPersonal, isSolo);
+                    items.add(temp);
                     break;
 
                 case "Twisted Bow":
-                    items.add(new Twisted_Bow(kc, isPersonal, isSolo));
+                    temp = new Twisted_Bow(kc, isPersonal, isSolo);
+                    items.add(temp);
                     break;
 
                 case "Olmlet":
-                    items.add(new Olmlet(kc, isPersonal, isSolo));
+                    temp = new Olmlet(kc, isPersonal, isSolo);
+                    items.add(temp);
                     break;
 
                 case "Metamorphic Dust":
-                    items.add(new Dust(kc, isPersonal, isSolo));
+                    temp = new Dust(kc, isPersonal, isSolo);
+                    items.add(temp);
                     break;
+                
+                default:
+                    throw new InputMismatchException("There is a strange item in the file.");
 
                 }
+
                 //System.out.println();
 
             }
@@ -166,7 +187,7 @@ public class SheetManager{
 
     }
 
-    public void makeCopy()throws IOException{
+    private void makeCopy()throws IOException{
         
 
         Path readPath = (Paths.get(".\\bin\\sheets\\SaveSheet.csv")).normalize();
@@ -179,5 +200,37 @@ public class SheetManager{
         FileWriter fw = new FileWriter(".\\bin\\sheets\\CopySheet.csv", false);
         fw.write("");
         fw.close();
+    }
+
+    public void add(Loot obj)throws IOException{
+        this.items.add(obj);
+        
+        FileWriter fw = new FileWriter(".\\bin\\sheets\\CopySheet.csv", true);
+        fw.write(obj.getName()+",");
+        fw.write(obj.getKc()+",");
+        if(obj.isPersonal()){
+            fw.write("YES,");
+        }
+        else{
+            fw.write("NO,");
+        }
+        if(obj.isSolo()){
+            fw.write("YES");
+        }
+        else{
+            fw.write("NO");
+        }
+        fw.close();
+    }
+
+    public void save()throws IOException{
+        FileWriter fw = new FileWriter(".\\bin\\sheets\\SaveSheet.csv", false);
+        fw.write("");
+        fw.close();
+
+        Path readPath = (Paths.get(".\\bin\\sheets\\CopySheet.csv")).normalize();
+        List<String> lines = Files.readAllLines(readPath);
+        Path writePath = Paths.get(".\\bin\\sheets\\SaveSheet.csv");
+        Files.write(writePath, lines, StandardOpenOption.APPEND);
     }
 }

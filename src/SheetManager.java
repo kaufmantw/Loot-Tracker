@@ -3,7 +3,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.List;
 
 import items.*;
 
@@ -14,7 +19,7 @@ public class SheetManager{
 
     public SheetManager(){
         items = new ArrayList<>();
-        this.sheet = new File("C:\\Users\\timka\\Documents\\code\\java\\OOP_Coursework\\Loot-Tracker\\bin\\sheets\\TempSheet.csv");
+        this.sheet = new File("\\sheets\\TempSheet.csv");
         fillList();
     }
 
@@ -149,5 +154,14 @@ public class SheetManager{
         System.out.println("Dust: " + Dust.count);
         System.out.println();
 
+    }
+
+    public void makeCopy()throws IOException{
+        
+
+        Path readPath = (Paths.get(".\\bin\\sheets\\TempSheet.csv")).normalize();
+        List<String> lines = Files.readAllLines(readPath);
+        Path writePath = Paths.get(".\\bin\\sheets\\CopySheet.csv");
+        Files.write(writePath, lines, StandardOpenOption.APPEND);
     }
 }

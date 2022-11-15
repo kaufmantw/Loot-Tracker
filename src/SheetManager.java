@@ -19,7 +19,7 @@ public class SheetManager{
 
     public SheetManager(){
         items = new ArrayList<>();
-        this.sheet = new File("\\sheets\\TempSheet.csv");
+        this.sheet = new File(".\\bin\\sheets\\TempSheet.csv");
         fillList();
     }
 

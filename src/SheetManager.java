@@ -41,6 +41,7 @@ public class SheetManager{
         int kc;
         boolean isPersonal;
         boolean isSolo;
+        boolean isCM;
         try{
             String line = "";
             String delimit = ",";
@@ -52,93 +53,85 @@ public class SheetManager{
                 //System.out.print(name + " ");
                 kc = Integer.parseInt(read[1]);
                 //System.out.print(kc + " ");
-                if(read[2].equalsIgnoreCase("YES")){
-                    isPersonal = true;
-                }
-                else{
-                    isPersonal = false;
-                }
+                isPersonal = read[2].equalsIgnoreCase("YES");
                 //System.out.print(isPersonal + " ");
 
-                if(read[3].equalsIgnoreCase("YES")){
-                    isSolo = true;
-                }
-                else{
-                    isSolo = false;
-                }
+                isSolo = read[3].equalsIgnoreCase("YES");
                 //System.out.print(isSolo + " ");
+
+                isCM = read[4].equalsIgnoreCase("YES");
 
                 //This switch statement creates the correct Loot Object to go into our list.
                 Loot temp;
                 switch(name){
 
                 case "Dexterous Prayer Scroll":
-                    temp = new Dex(kc, isPersonal, isSolo);
+                    temp = new Dex(kc, isPersonal, isSolo, isCM);
                     items.add(temp);
                     break;
                 
                 case "Arcane Prayer Scroll":
-                    temp = new Arcane(kc, isPersonal, isSolo);
+                    temp = new Arcane(kc, isPersonal, isSolo, isCM);
                     items.add(temp);
                     break;
 
                 case "Ancestral Robe Bottoms":
-                    temp = new Ances_Bottom(kc, isPersonal, isSolo);
+                    temp = new Ances_Bottom(kc, isPersonal, isSolo, isCM);
                     items.add(temp);
                     break;
 
                 case "Ancestral Robe Top":
-                    temp = new Ances_Top(kc, isPersonal, isSolo);
+                    temp = new Ances_Top(kc, isPersonal, isSolo, isCM);
                     items.add(temp);
                     break;
 
                 case "Ancestral Hat":
-                    temp = new Ances_Hat(kc, isPersonal, isSolo);
+                    temp = new Ances_Hat(kc, isPersonal, isSolo, isCM);
                     items.add(temp);
                     break;
 
                 case "Twisted Buckler":
-                    temp = new Buckler(kc, isPersonal, isSolo);
+                    temp = new Buckler(kc, isPersonal, isSolo, isCM);
                     items.add(temp);
                     break;
 
                 case "Dragon hunter Crossbow":
-                    temp = new DHCB(kc, isPersonal, isSolo);
+                    temp = new DHCB(kc, isPersonal, isSolo, isCM);
                     items.add(temp);
                     break;
 
                 case "Dinh's Bulwark":
-                    temp = new Dinh(kc, isPersonal, isSolo);
+                    temp = new Dinh(kc, isPersonal, isSolo, isCM);
                     items.add(temp);
                     break;
 
                 case "Dragon Claws":
-                    temp = new Claws(kc, isPersonal, isSolo);
+                    temp = new Claws(kc, isPersonal, isSolo, isCM);
                     items.add(temp);
                     break;
 
                 case "Elder Maul":
-                    temp = new Elder_Maul(kc, isPersonal, isSolo);
+                    temp = new Elder_Maul(kc, isPersonal, isSolo, isCM);
                     items.add(temp);
                     break;
 
                 case "Kodai Insignia":
-                    temp = new Kodai_Insignia(kc, isPersonal, isSolo);
+                    temp = new Kodai_Insignia(kc, isPersonal, isSolo, isCM);
                     items.add(temp);
                     break;
 
                 case "Twisted Bow":
-                    temp = new Twisted_Bow(kc, isPersonal, isSolo);
+                    temp = new Twisted_Bow(kc, isPersonal, isSolo, isCM);
                     items.add(temp);
                     break;
 
                 case "Olmlet":
-                    temp = new Olmlet(kc, isPersonal, isSolo);
+                    temp = new Olmlet(kc, isPersonal, isSolo, isCM);
                     items.add(temp);
                     break;
 
                 case "Metamorphic Dust":
-                    temp = new Dust(kc, isPersonal, isSolo);
+                    temp = new Dust(kc, isPersonal, isSolo, isCM);
                     items.add(temp);
                     break;
                 
@@ -165,7 +158,8 @@ public class SheetManager{
         System.out.println();
         for(int i = 0;i<this.items.size();i++){
             System.out.println(items.get(i).getName() + " " + items.get(i).getKc() + " " +
-                                items.get(i).isPersonal() + " " + items.get(i).isSolo());
+                                items.get(i).isPersonal() + " " + items.get(i).isSolo() +
+                                " " + items.get(i).isCM());
         }
     }
 
@@ -216,8 +210,16 @@ public class SheetManager{
         }
         else{
             fw.write("NO,");
+
         }
         if(obj.isSolo()){
+            fw.write("YES,");
+        }
+        else{
+            fw.write("NO,");
+        }
+
+        if(obj.isCM()){
             fw.write("YES");
         }
         else{
@@ -242,7 +244,7 @@ public class SheetManager{
 
     //this method is used to generate data for
     //the compare charts.
-    public int returnCount(int upperbound, int lowerbound, boolean isCM, boolean isSolo, boolean isPersonal){
+    public int returnCount(int lowerbound, int upperbound, boolean isCM, boolean isSolo, boolean isPersonal){
         int count = 0;
         for(Loot temp : items){
             if( temp.getKc() <= upperbound &&

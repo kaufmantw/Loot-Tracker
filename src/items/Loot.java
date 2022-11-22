@@ -60,4 +60,8 @@ public class Loot{
     public boolean isCM(){
         return isCM;
     }
+
+    public String getTime(){
+        return stamp.toString();
+    }
 }

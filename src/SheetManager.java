@@ -162,7 +162,7 @@ public class SheetManager{
         for(int i = 0;i<this.items.size();i++){
             System.out.println(items.get(i).getName() + " " + items.get(i).getKc() + " " +
                                 items.get(i).isPersonal() + " " + items.get(i).isSolo() +
-                                " " + items.get(i).isCM());
+                                " " + items.get(i).isCM() + " " + items.get(i).getTime());
         }
     }
 
@@ -223,11 +223,13 @@ public class SheetManager{
         }
 
         if(obj.isCM()){
-            fw.write("YES");
+            fw.write("YES,");
         }
         else{
-            fw.write("NO");
+            fw.write("NO,");
         }
+
+        fw.write(obj.getTime());
         //adding the new line, then closing with the FileWriter.
         bw.newLine();
         bw.close();

@@ -42,6 +42,7 @@ public class SheetManager{
         boolean isPersonal;
         boolean isSolo;
         boolean isCM;
+        String time;
         try{
             String line = "";
             String delimit = ",";
@@ -61,77 +62,79 @@ public class SheetManager{
 
                 isCM = read[4].equalsIgnoreCase("YES");
 
+                time = read[5];
+
                 //This switch statement creates the correct Loot Object to go into our list.
                 Loot temp;
                 switch(name){
 
                 case "Dexterous Prayer Scroll":
-                    temp = new Dex(kc, isPersonal, isSolo, isCM);
+                    temp = new Dex(kc, isPersonal, isSolo, isCM, time);
                     items.add(temp);
                     break;
                 
                 case "Arcane Prayer Scroll":
-                    temp = new Arcane(kc, isPersonal, isSolo, isCM);
+                    temp = new Arcane(kc, isPersonal, isSolo, isCM, time);
                     items.add(temp);
                     break;
 
                 case "Ancestral Robe Bottoms":
-                    temp = new Ances_Bottom(kc, isPersonal, isSolo, isCM);
+                    temp = new Ances_Bottom(kc, isPersonal, isSolo, isCM, time);
                     items.add(temp);
                     break;
 
                 case "Ancestral Robe Top":
-                    temp = new Ances_Top(kc, isPersonal, isSolo, isCM);
+                    temp = new Ances_Top(kc, isPersonal, isSolo, isCM, time);
                     items.add(temp);
                     break;
 
                 case "Ancestral Hat":
-                    temp = new Ances_Hat(kc, isPersonal, isSolo, isCM);
+                    temp = new Ances_Hat(kc, isPersonal, isSolo, isCM, time);
                     items.add(temp);
                     break;
 
                 case "Twisted Buckler":
-                    temp = new Buckler(kc, isPersonal, isSolo, isCM);
+                    temp = new Buckler(kc, isPersonal, isSolo, isCM, time);
                     items.add(temp);
                     break;
 
                 case "Dragon hunter Crossbow":
-                    temp = new DHCB(kc, isPersonal, isSolo, isCM);
+                    temp = new DHCB(kc, isPersonal, isSolo, isCM, time);
                     items.add(temp);
                     break;
 
                 case "Dinh's Bulwark":
-                    temp = new Dinh(kc, isPersonal, isSolo, isCM);
+                    temp = new Dinh(kc, isPersonal, isSolo, isCM, time);
                     items.add(temp);
                     break;
 
                 case "Dragon Claws":
-                    temp = new Claws(kc, isPersonal, isSolo, isCM);
+                    temp = new Claws(kc, isPersonal, isSolo, isCM, time);
                     items.add(temp);
                     break;
 
                 case "Elder Maul":
-                    temp = new Elder_Maul(kc, isPersonal, isSolo, isCM);
+                    temp = new Elder_Maul(kc, isPersonal, isSolo, isCM, time);
                     items.add(temp);
                     break;
 
                 case "Kodai Insignia":
-                    temp = new Kodai_Insignia(kc, isPersonal, isSolo, isCM);
+                    temp = new Kodai_Insignia(kc, isPersonal, isSolo, isCM, time);
                     items.add(temp);
                     break;
 
                 case "Twisted Bow":
-                    temp = new Twisted_Bow(kc, isPersonal, isSolo, isCM);
+                    temp = new Twisted_Bow(kc, isPersonal, isSolo, isCM, time);
                     items.add(temp);
                     break;
 
                 case "Olmlet":
-                    temp = new Olmlet(kc, isPersonal, isSolo, isCM);
+                    temp = new Olmlet(kc, isPersonal, isSolo, isCM, time);
                     items.add(temp);
                     break;
 
                 case "Metamorphic Dust":
-                    temp = new Dust(kc, isPersonal, isSolo, isCM);
+                    temp = new Dust(kc, isPersonal, isSolo, isCM, time);
                     items.add(temp);
                     break;
                 

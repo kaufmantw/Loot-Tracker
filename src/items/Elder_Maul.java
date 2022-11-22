@@ -7,4 +7,9 @@ public class Elder_Maul extends Loot{
         super(NAME, 34.5, kc, isPersonal, isSolo, isCM);
         count++;
     }
+
+    public Elder_Maul(int kc, boolean isPersonal, boolean isSolo, boolean isCM, String time){
+        super(NAME, 34.5, kc, isPersonal, isSolo, isCM, time);
+        count++;
+    }
 }

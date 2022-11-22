@@ -8,4 +8,9 @@ public class Dust extends Loot {
         super(NAME, 400, kc, isPersonal, isSolo, isCM);
         count++;
     }
+
+    public Dust(int kc, boolean isPersonal, boolean isSolo, boolean isCM, String time) {
+        super(NAME, 400, kc, isPersonal, isSolo, isCM, time);
+        count++;
+    }
 }

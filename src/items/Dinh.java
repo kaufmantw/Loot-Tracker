@@ -7,4 +7,9 @@ public class Dinh extends Loot{
         super(NAME, 23, kc, isPersonal, isSolo, isCM);
         count++;
     }
+
+    public Dinh(int kc, boolean isPersonal, boolean isSolo, boolean isCM, String time){
+        super(NAME, 23, kc, isPersonal, isSolo, isCM, time);
+        count++;
+    }
 }

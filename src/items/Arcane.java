@@ -7,4 +7,9 @@ public class Arcane extends Loot{
         super(NAME, 3.45, kc, isPersonal, isSolo, isCM);
         count++;
     }
+
+    public Arcane(int kc, boolean isPersonal, boolean isSolo, boolean isCM, String time){
+        super(NAME, 3.45, kc, isPersonal, isSolo, isCM, time);
+        count++;
+    }
 }

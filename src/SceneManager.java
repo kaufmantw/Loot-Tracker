@@ -44,6 +44,7 @@ public class SceneManager {
 
     SubmitScene sscene;
     CompareScene cscene;
+    LogScene lscene;
 
     SheetManager sm;
 
@@ -103,6 +104,14 @@ public class SceneManager {
         });
         btSubmit.setPadding(new Insets(5));
 
+        lscene = new LogScene(sm);
+
+        Button btLog = new Button("Log");
+        btLog.setOnAction(e -> {
+            lscene.logScene(primaryStage);
+        });
+        btLog.setPadding(new Insets(5));
+
         Image scroll = new Image("\\images\\osrsScrollfin.PNG");
         ImageView view = new ImageView(scroll);
         Font font = Font.loadFont(
@@ -113,7 +122,7 @@ public class SceneManager {
         spane.getChildren().addAll(view, welcome);
 
         // Adding objects to scene and displaying scene
-        hbox.getChildren().addAll(btnCount, btnList, btCompare, btSubmit);
+        hbox.getChildren().addAll(btnCount, btnList, btCompare, btSubmit, btLog);
         hbox.setAlignment(Pos.CENTER);
         topbox.getChildren().addAll(btnSave);
         topbox.setAlignment(Pos.TOP_LEFT);

@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Instant;
 
 import items.*;
 
@@ -14,6 +16,7 @@ public class Test{
         //sm.emptyCopy();
 
         //tests for returnCount
+        /*
         int count = sm.returnCount(0, 10000, false, false, false);
         System.out.println("The first set of items has " + count + " entries.");
 
@@ -28,6 +31,12 @@ public class Test{
 
         count = sm.returnCount(0, 100000, false, true, true);
         System.out.println("The fifth set of items has " + count + " entries.");
+        */
 
+        Timestamp stamp = Timestamp.from(Instant.now());
+        System.out.println("The time is: " + stamp);
+        System.out.println("As a string: " + stamp.toString());
+
+        //System.out.println("Testing getTime: " + stamp.getTime());
     }
 }

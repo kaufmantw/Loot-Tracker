@@ -98,7 +98,7 @@ public class SheetManager{
                     items.add(temp);
                     break;
 
-                case "Dragon hunter Crossbow":
+                case "Dragonhunter Crossbow":
                     temp = new DHCB(kc, isPersonal, isSolo, isCM, time);
                     items.add(temp);
                     break;

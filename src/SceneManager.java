@@ -74,16 +74,19 @@ public class SceneManager {
                 f.getMessage();
             }
         });
+        btnSave.setPadding(new Insets(5));
 
         Button btnList = new Button("Print List");
         btnList.setOnAction(e ->{
             this.sm.printList();
         });
+        btnList.setPadding(new Insets(5));
 
         Button btnCount = new Button("Print Counts");
         btnCount.setOnAction(e ->{
             this.sm.printCounts();
         });
+        btnCount.setPadding(new Insets(5));
 
         cscene = new CompareScene(sm);
 

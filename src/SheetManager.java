@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -196,7 +197,7 @@ public class SheetManager{
         Files.write(writePath, lines, StandardOpenOption.APPEND);
     }
 
-    public void emptyCopy()throws IOException{
+    private void emptyCopy()throws IOException{
         FileWriter fw = new FileWriter(".\\bin\\sheets\\CopySheet.csv", false);
         fw.write("");
         fw.close();
@@ -206,6 +207,8 @@ public class SheetManager{
         this.items.add(obj);
         
         FileWriter fw = new FileWriter(".\\bin\\sheets\\CopySheet.csv", true);
+        //added a BufferedWriter to start entries on new lines.
+        BufferedWriter bw = new BufferedWriter(fw);
         fw.write(obj.getName()+",");
         fw.write(obj.getKc()+",");
         if(obj.isPersonal()){
@@ -220,6 +223,9 @@ public class SheetManager{
         else{
             fw.write("NO");
         }
+        //adding the new line, then closing with the FileWriter.
+        bw.newLine();
+        bw.close();
         fw.close();
     }
 
@@ -232,5 +238,20 @@ public class SheetManager{
         List<String> lines = Files.readAllLines(readPath);
         Path writePath = Paths.get(".\\bin\\sheets\\SaveSheet.csv");
         Files.write(writePath, lines, StandardOpenOption.APPEND);
+    }
+
+    //this method is used to generate data for
+    //the compare charts.
+    public int returnCount(int upperbound, int lowerbound, boolean isCM, boolean isSolo, boolean isPersonal){
+        int count = 0;
+        for(Loot temp : items){
+            if( temp.getKc() <= upperbound &&
+                temp.getKc() >= lowerbound &&
+                temp.isSolo() == isSolo &&
+                temp.isPersonal() == isPersonal){
+                    count++;
+                }
+        }
+        return count;
     }
 }

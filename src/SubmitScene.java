@@ -1,6 +1,9 @@
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+
+import java.io.IOException;
+
 import items.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -126,65 +129,74 @@ public class SubmitScene extends SceneManager {
                         currentItem = i;
                     }
                 }
+                //this switch case is now in a try/catch block to
+                //catch an IOException that can be thrown from the add method.
+                //it is thrown because add is both adding to the copycsv and 
+                //arraylist that sheetmanager stores.
+                try{
                 switch (currentItem) {
                     case 0:
-                        sm.items.add(new Dex(Integer.parseInt(killCountField.getText()),
+                        sm.add(new Dex(Integer.parseInt(killCountField.getText()),
                                 personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                         break;
                     case 1:
-                        sm.items.add(new Arcane(Integer.parseInt(killCountField.getText()),
+                        sm.add(new Arcane(Integer.parseInt(killCountField.getText()),
                                 personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                         break;
                     case 2:
-                        sm.items.add(new Buckler(Integer.parseInt(killCountField.getText()),
+                        sm.add(new Buckler(Integer.parseInt(killCountField.getText()),
                                 personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                         break;
                     case 3:
-                        sm.items.add(new DHCB(Integer.parseInt(killCountField.getText()),
+                        sm.add(new DHCB(Integer.parseInt(killCountField.getText()),
                                 personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                         break;
                     case 4:
-                        sm.items.add(new Dinh(Integer.parseInt(killCountField.getText()),
+                        sm.add(new Dinh(Integer.parseInt(killCountField.getText()),
                                 personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                         break;
                     case 5:
-                        sm.items.add(new Ances_Hat(Integer.parseInt(killCountField.getText()),
+                        sm.add(new Ances_Hat(Integer.parseInt(killCountField.getText()),
                                 personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                         break;
                     case 6:
-                        sm.items.add(new Ances_Top(Integer.parseInt(killCountField.getText()),
+                        sm.add(new Ances_Top(Integer.parseInt(killCountField.getText()),
                                 personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                         break;
                     case 7:
-                        sm.items.add(new Ances_Bottom(Integer.parseInt(killCountField.getText()),
+                        sm.add(new Ances_Bottom(Integer.parseInt(killCountField.getText()),
                                 personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                         break;
                     case 8:
-                        sm.items.add(new Claws(Integer.parseInt(killCountField.getText()),
+                        sm.add(new Claws(Integer.parseInt(killCountField.getText()),
                                 personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                         break;
                     case 9:
-                        sm.items.add(new Elder_Maul(Integer.parseInt(killCountField.getText()),
+                        sm.add(new Elder_Maul(Integer.parseInt(killCountField.getText()),
                                 personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                         break;
                     case 10:
-                        sm.items.add(new Kodai_Insignia(Integer.parseInt(killCountField.getText()),
+                        sm.add(new Kodai_Insignia(Integer.parseInt(killCountField.getText()),
                                 personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                         break;
                     case 11:
-                        sm.items.add(new Twisted_Bow(Integer.parseInt(killCountField.getText()),
+                        sm.add(new Twisted_Bow(Integer.parseInt(killCountField.getText()),
                                 personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                         break;
                     case 12:
-                        sm.items.add(new Olmlet(Integer.parseInt(killCountField.getText()),
+                        sm.add(new Olmlet(Integer.parseInt(killCountField.getText()),
                                 personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                         break;
                     case 13:
-                        sm.items.add(new Dust(Integer.parseInt(killCountField.getText()),
+                        sm.add(new Dust(Integer.parseInt(killCountField.getText()),
                                 personalBox.selectedProperty().getValue(), soloBox.selectedProperty().getValue()));
                         break;
 
                 }
+            }
+            catch(IOException j){
+                j.getMessage();
+            }
             } else {
                 killCountField.requestFocus();
             }

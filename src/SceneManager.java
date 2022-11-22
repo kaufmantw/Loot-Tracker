@@ -1,6 +1,9 @@
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+
+import java.io.IOException;
+
 import items.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -55,8 +58,21 @@ public class SceneManager {
         HBox hbox = new HBox(5);
         bpane.setBottom(hbox);
 
+        HBox topbox = new HBox(5);
+        bpane.setTop(topbox);
+
         StackPane spane = new StackPane();
         bpane.setCenter(spane);
+
+        Button btnSave = new Button("Save");
+        btnSave.setOnAction(e ->{
+            try{
+                this.sm.save();
+            }
+            catch(IOException f){
+                f.getMessage();
+            }
+        });
 
         Button btnList = new Button("Print List");
         btnList.setOnAction(e ->{
@@ -87,7 +103,7 @@ public class SceneManager {
         });
         btSubmit.setPadding(new Insets(5));
 
-        Image scroll = new Image("\\images\\osrsScroll.PNG");
+        Image scroll = new Image("\\images\\osrsScrollfin.PNG");
         ImageView view = new ImageView(scroll);
         Font font = Font.loadFont(
                 "file:bin\\fonts\\runescape_uf.ttf",
@@ -99,6 +115,8 @@ public class SceneManager {
         // Adding objects to scene and displaying scene
         hbox.getChildren().addAll(btnCount, btnList, btCompare, btSubmit);
         hbox.setAlignment(Pos.CENTER);
+        topbox.getChildren().addAll(btnSave);
+        topbox.setAlignment(Pos.TOP_LEFT);
 
         Scene scene = new Scene(bpane, 600, 800);
         primaryStage.setScene(scene);

@@ -12,7 +12,7 @@ public class Loot{
     private boolean isSolo;
     private boolean isCM;
 
-    private Timestamp stamp;
+    public Timestamp stamp;
 
     public Loot(String name, double rate, int kc, boolean isPersonal, boolean isSolo, boolean isCM, String time){
         this.name = name;

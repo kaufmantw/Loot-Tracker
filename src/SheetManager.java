@@ -261,4 +261,23 @@ public class SheetManager{
         }
         return count;
     }
+
+    public int totalKc(){
+        Loot tempNorm = new Loot("", 5,0, false, false, false);
+        Loot tempCM = new Loot("", 5,0, false, false, false);
+        for (Loot temp : items){
+            if (temp.isCM()){
+                tempCM = temp;
+            }
+            else{
+                tempNorm = temp;
+            }
+        }
+        return tempNorm.getKc() + tempCM.getKc();
+    }
+
+    public void remove(Loot obj){
+        items.indexOf(obj);
+        items.remove(obj);
+    }
 }

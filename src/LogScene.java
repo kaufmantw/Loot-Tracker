@@ -2,8 +2,10 @@ import items.*;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class LogScene extends SceneManager{
@@ -14,17 +16,32 @@ public class LogScene extends SceneManager{
 
     public void logScene(Stage primaryStage){
         BorderPane bpane = new BorderPane();
+
         HBox hbox = new HBox(5);
         bpane.setBottom(hbox);
 
-        Button btReturn = new Button("Return to main menu");
+        VBox logpane = new VBox(5);
+        bpane.setRight(logpane);
 
+        //this is a rough generation of the log
+        for(Loot item : sm.items){
+            Button btnRemove = new Button("Remove");
+            btnRemove.setOnAction(e ->{
+                sm.remove(item);
+            });
+            Label lblItem = new Label(item.getName() + " KC: " + item.getKc() + " Date: " + item.getTime());
+            logpane.getChildren().addAll(lblItem, btnRemove);
+        }
+
+        Button btnReturn = new Button("Return to main menu");
         // formality of the situation
-        btReturn.setOnAction(e -> {
+        btnReturn.setOnAction(e -> {
             startScene(primaryStage);
         });
 
-        hbox.getChildren().addAll(btReturn);
+        Label lblLastBow = new Label("Kc since last bow: " + kcSinceTbow());
+
+        hbox.getChildren().addAll(btnReturn, lblLastBow);
         hbox.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(bpane, 600, 800);
@@ -32,6 +49,19 @@ public class LogScene extends SceneManager{
         primaryStage.show();
         primaryStage.setResizable(false);
 
+    }
+
+    public int kcSinceTbow(){
+        Loot tempBow = new Twisted_Bow(0,false,false,false,"1999-11-22 15:53:03.6845859");
+        for(Loot item : sm.items){
+            if ((item instanceof Twisted_Bow) &&
+                item.stamp.after(tempBow.stamp)){
+                    tempBow = item;
+            }
+        }
+
+        return sm.totalKc() - tempBow.getKc();
+        
     }
 
 

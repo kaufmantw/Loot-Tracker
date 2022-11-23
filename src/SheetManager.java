@@ -1,135 +1,172 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
 
 import items.*;
 
-public class SheetManager {
+public class SheetManager{
 
     ArrayList<Loot> items;
-    File sheet;
+    File saveSheet;
+    File copySheet;
 
-    public SheetManager() {
+    public SheetManager(){
         items = new ArrayList<>();
-        this.sheet = new File("\\sheets\\TempSheet.csv");
+        this.saveSheet = new File(".\\bin\\sheets\\SaveSheet.csv");
+        this.copySheet = new File(".\\bin\\sheets\\CopySheet.csv");
+        try{
+            emptyCopy();
+            makeCopy();
+        }
+        catch(IOException e){
+            e.getMessage();
+        }
+
         fillList();
     }
 
-    public void fillList() {
+    public void fillList(){
         String name;
         int kc;
         boolean isPersonal;
         boolean isSolo;
-        try {
+        boolean isCM;
+        String time;
+        try{
             String line = "";
             String delimit = ",";
-            BufferedReader br = new BufferedReader(new FileReader(this.sheet));
-            // this while loop creates one object per line in the CSV file.
-            while ((line = br.readLine()) != null) {
+            BufferedReader br = new BufferedReader(new FileReader(this.saveSheet));
+            //this while loop creates one object per line in the CSV file.
+            while((line = br.readLine()) != null){
                 String[] read = line.split(delimit);
                 name = read[0];
-                // System.out.print(name + " ");
+                //System.out.print(name + " ");
                 kc = Integer.parseInt(read[1]);
-                // System.out.print(kc + " ");
-                if (read[2].equalsIgnoreCase("YES")) {
-                    isPersonal = true;
-                } else {
-                    isPersonal = false;
+                //System.out.print(kc + " ");
+                isPersonal = read[2].equalsIgnoreCase("YES");
+                //System.out.print(isPersonal + " ");
+
+                isSolo = read[3].equalsIgnoreCase("YES");
+                //System.out.print(isSolo + " ");
+
+                isCM = read[4].equalsIgnoreCase("YES");
+
+                time = read[5];
+
+                //This switch statement creates the correct Loot Object to go into our list.
+                Loot temp;
+                switch(name){
+
+                case "Dexterous Prayer Scroll":
+                    temp = new Dex(kc, isPersonal, isSolo, isCM, time);
+                    items.add(temp);
+                    break;
+                
+                case "Arcane Prayer Scroll":
+                    temp = new Arcane(kc, isPersonal, isSolo, isCM, time);
+                    items.add(temp);
+                    break;
+
+                case "Ancestral Robe Bottoms":
+                    temp = new Ances_Bottom(kc, isPersonal, isSolo, isCM, time);
+                    items.add(temp);
+                    break;
+
+                case "Ancestral Robe Top":
+                    temp = new Ances_Top(kc, isPersonal, isSolo, isCM, time);
+                    items.add(temp);
+                    break;
+
+                case "Ancestral Hat":
+                    temp = new Ances_Hat(kc, isPersonal, isSolo, isCM, time);
+                    items.add(temp);
+                    break;
+
+                case "Twisted Buckler":
+                    temp = new Buckler(kc, isPersonal, isSolo, isCM, time);
+                    items.add(temp);
+                    break;
+
+                case "Dragonhunter Crossbow":
+                    temp = new DHCB(kc, isPersonal, isSolo, isCM, time);
+                    items.add(temp);
+                    break;
+
+                case "Dinh's Bulwark":
+                    temp = new Dinh(kc, isPersonal, isSolo, isCM, time);
+                    items.add(temp);
+                    break;
+
+                case "Dragon Claws":
+                    temp = new Claws(kc, isPersonal, isSolo, isCM, time);
+                    items.add(temp);
+                    break;
+
+                case "Elder Maul":
+                    temp = new Elder_Maul(kc, isPersonal, isSolo, isCM, time);
+                    items.add(temp);
+                    break;
+
+                case "Kodai Insignia":
+                    temp = new Kodai_Insignia(kc, isPersonal, isSolo, isCM, time);
+                    items.add(temp);
+                    break;
+
+                case "Twisted Bow":
+                    temp = new Twisted_Bow(kc, isPersonal, isSolo, isCM, time);
+                    items.add(temp);
+                    break;
+
+                case "Olmlet":
+                    temp = new Olmlet(kc, isPersonal, isSolo, isCM, time);
+                    items.add(temp);
+                    break;
+
+                case "Metamorphic Dust":
+                    temp = new Dust(kc, isPersonal, isSolo, isCM, time);
+                    items.add(temp);
+                    break;
+                
+                default:
+                    throw new InputMismatchException("There is a strange item in the file.");
+
                 }
-                // System.out.print(isPersonal + " ");
 
-                if (read[3].equalsIgnoreCase("YES")) {
-                    isSolo = true;
-                } else {
-                    isSolo = false;
-                }
-                // System.out.print(isSolo + " ");
-
-                // This switch statement creates the correct Loot Object to go into our list.
-                switch (name) {
-
-                    case "Dexterous Prayer Scroll":
-                        items.add(new Dex(kc, isPersonal, isSolo));
-                        break;
-
-                    case "Arcane Prayer Scroll":
-                        items.add(new Arcane(kc, isPersonal, isSolo));
-                        break;
-
-                    case "Ancestral Robe Bottoms":
-                        items.add(new Ances_Bottom(kc, isPersonal, isSolo));
-                        break;
-
-                    case "Ancestral Robe Top":
-                        items.add(new Ances_Top(kc, isPersonal, isSolo));
-                        break;
-
-                    case "Ancestral Hat":
-                        items.add(new Ances_Hat(kc, isPersonal, isSolo));
-                        break;
-
-                    case "Twisted Buckler":
-                        items.add(new Buckler(kc, isPersonal, isSolo));
-                        break;
-
-                    case "Dragon hunter Crossbow":
-                        items.add(new DHCB(kc, isPersonal, isSolo));
-                        break;
-
-                    case "Dinh's Bulwark":
-                        items.add(new Dinh(kc, isPersonal, isSolo));
-                        break;
-
-                    case "Dragon Claws":
-                        items.add(new Claws(kc, isPersonal, isSolo));
-                        break;
-
-                    case "Elder Maul":
-                        items.add(new Elder_Maul(kc, isPersonal, isSolo));
-                        break;
-
-                    case "Kodai Insignia":
-                        items.add(new Kodai_Insignia(kc, isPersonal, isSolo));
-                        break;
-
-                    case "Twisted Bow":
-                        items.add(new Twisted_Bow(kc, isPersonal, isSolo));
-                        break;
-
-                    case "Olmlet":
-                        items.add(new Olmlet(kc, isPersonal, isSolo));
-                        break;
-
-                    case "Metamorphic Dust":
-                        items.add(new Dust(kc, isPersonal, isSolo));
-                        break;
-
-                }
-                // System.out.println();
+                //System.out.println();
 
             }
             br.close();
-        } catch (FileNotFoundException e) {
+        }
+        catch(FileNotFoundException e){
             System.out.println("Fix the file path dumbass.");
         }
 
-        catch (IOException e) {
+        catch(IOException e){
             System.out.println("Fix the file dumbass.");
         }
     }
 
-    public void printList() {
+    public void printList(){
         System.out.println();
-        for (int i = 0; i < this.items.size(); i++) {
+        for(int i = 0;i<this.items.size();i++){
             System.out.println(items.get(i).getName() + " " + items.get(i).getKc() + " " +
-                    items.get(i).isPersonal() + " " + items.get(i).isSolo());
+                                items.get(i).isPersonal() + " " + items.get(i).isSolo() +
+                                " " + items.get(i).isCM() + " " + items.get(i).getTime());
         }
     }
 
-    public void printCounts() {
+    public void printCounts(){
         System.out.println("Dexterous Prayer scrolls: " + Dex.count);
         System.out.println("Arcane Prayer scrolls: " + Arcane.count);
         System.out.println("Dinhs Bulwark: " + Dinh.count);
@@ -146,5 +183,101 @@ public class SheetManager {
         System.out.println("Dust: " + Dust.count);
         System.out.println();
 
+    }
+
+    private void makeCopy()throws IOException{
+        
+
+        Path readPath = (Paths.get(".\\bin\\sheets\\SaveSheet.csv")).normalize();
+        List<String> lines = Files.readAllLines(readPath);
+        Path writePath = Paths.get(".\\bin\\sheets\\CopySheet.csv");
+        Files.write(writePath, lines, StandardOpenOption.APPEND);
+    }
+
+    private void emptyCopy()throws IOException{
+        FileWriter fw = new FileWriter(".\\bin\\sheets\\CopySheet.csv", false);
+        fw.write("");
+        fw.close();
+    }
+
+    public void add(Loot obj)throws IOException{
+        this.items.add(obj);
+        
+        FileWriter fw = new FileWriter(".\\bin\\sheets\\CopySheet.csv", true);
+        //added a BufferedWriter to start entries on new lines.
+        BufferedWriter bw = new BufferedWriter(fw);
+        fw.write(obj.getName()+",");
+        fw.write(obj.getKc()+",");
+        if(obj.isPersonal()){
+            fw.write("YES,");
+        }
+        else{
+            fw.write("NO,");
+
+        }
+        if(obj.isSolo()){
+            fw.write("YES,");
+        }
+        else{
+            fw.write("NO,");
+        }
+
+        if(obj.isCM()){
+            fw.write("YES,");
+        }
+        else{
+            fw.write("NO,");
+        }
+
+        fw.write(obj.getTime());
+        //adding the new line, then closing with the FileWriter.
+        bw.newLine();
+        bw.close();
+        fw.close();
+    }
+
+    public void save()throws IOException{
+        FileWriter fw = new FileWriter(".\\bin\\sheets\\SaveSheet.csv", false);
+        fw.write("");
+        fw.close();
+
+        Path readPath = (Paths.get(".\\bin\\sheets\\CopySheet.csv")).normalize();
+        List<String> lines = Files.readAllLines(readPath);
+        Path writePath = Paths.get(".\\bin\\sheets\\SaveSheet.csv");
+        Files.write(writePath, lines, StandardOpenOption.APPEND);
+    }
+
+    //this method is used to generate data for
+    //the compare charts.
+    public int returnCount(int lowerbound, int upperbound, boolean isCM, boolean isSolo, boolean isPersonal){
+        int count = 0;
+        for(Loot temp : items){
+            if( temp.getKc() <= upperbound &&
+                temp.getKc() >= lowerbound &&
+                temp.isSolo() == isSolo &&
+                temp.isPersonal() == isPersonal){
+                    count++;
+                }
+        }
+        return count;
+    }
+
+    public int totalKc(){
+        Loot tempNorm = new Loot("", 5,0, false, false, false);
+        Loot tempCM = new Loot("", 5,0, false, false, false);
+        for (Loot temp : items){
+            if (temp.isCM()){
+                tempCM = temp;
+            }
+            else{
+                tempNorm = temp;
+            }
+        }
+        return tempNorm.getKc() + tempCM.getKc();
+    }
+
+    public void remove(Loot obj){
+        items.indexOf(obj);
+        items.remove(obj);
     }
 }

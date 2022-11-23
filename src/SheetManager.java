@@ -19,20 +19,10 @@ public class SheetManager{
 
     ArrayList<Loot> items;
     File saveSheet;
-    File copySheet;
 
     public SheetManager(){
         items = new ArrayList<>();
         this.saveSheet = new File(".\\bin\\sheets\\SaveSheet.csv");
-        this.copySheet = new File(".\\bin\\sheets\\CopySheet.csv");
-        try{
-            emptyCopy();
-            makeCopy();
-        }
-        catch(IOException e){
-            e.getMessage();
-        }
-
         fillList();
     }
 
@@ -185,66 +175,46 @@ public class SheetManager{
 
     }
 
-    private void makeCopy()throws IOException{
-        
-
-        Path readPath = (Paths.get(".\\bin\\sheets\\SaveSheet.csv")).normalize();
-        List<String> lines = Files.readAllLines(readPath);
-        Path writePath = Paths.get(".\\bin\\sheets\\CopySheet.csv");
-        Files.write(writePath, lines, StandardOpenOption.APPEND);
-    }
-
-    private void emptyCopy()throws IOException{
-        FileWriter fw = new FileWriter(".\\bin\\sheets\\CopySheet.csv", false);
-        fw.write("");
-        fw.close();
-    }
-
     public void add(Loot obj)throws IOException{
         this.items.add(obj);
-        
-        FileWriter fw = new FileWriter(".\\bin\\sheets\\CopySheet.csv", true);
-        //added a BufferedWriter to start entries on new lines.
-        BufferedWriter bw = new BufferedWriter(fw);
-        fw.write(obj.getName()+",");
-        fw.write(obj.getKc()+",");
-        if(obj.isPersonal()){
-            fw.write("YES,");
-        }
-        else{
-            fw.write("NO,");
 
-        }
-        if(obj.isSolo()){
-            fw.write("YES,");
-        }
-        else{
-            fw.write("NO,");
-        }
-
-        if(obj.isCM()){
-            fw.write("YES,");
-        }
-        else{
-            fw.write("NO,");
-        }
-
-        fw.write(obj.getTime());
-        //adding the new line, then closing with the FileWriter.
-        bw.newLine();
-        bw.close();
-        fw.close();
     }
 
     public void save()throws IOException{
         FileWriter fw = new FileWriter(".\\bin\\sheets\\SaveSheet.csv", false);
-        fw.write("");
-        fw.close();
+    
+        for(int i = 0;i<items.size();i++){
+            //added a BufferedWriter to start entries on new lines.
+            fw.write(items.get(i).getName()+",");
+            fw.write(items.get(i).getKc()+",");
+            if(items.get(i).isPersonal()){
+                fw.write("YES,");
+            }
+            else{
+                fw.write("NO,");
 
-        Path readPath = (Paths.get(".\\bin\\sheets\\CopySheet.csv")).normalize();
-        List<String> lines = Files.readAllLines(readPath);
-        Path writePath = Paths.get(".\\bin\\sheets\\SaveSheet.csv");
-        Files.write(writePath, lines, StandardOpenOption.APPEND);
+            }
+            if(items.get(i).isSolo()){
+                fw.write("YES,");
+            }
+            else{
+                fw.write("NO,");
+            }
+
+            if(items.get(i).isCM()){
+                fw.write("YES,");
+            }
+            else{
+                fw.write("NO,");
+            }
+
+            fw.write(items.get(i).getTime());
+            if((i<items.size()-1)){
+                fw.write("\r\n");
+            }
+            //adding the new line, then closing with the FileWriter.
+            }
+            fw.close();
     }
 
     //this method is used to generate data for
@@ -277,7 +247,6 @@ public class SheetManager{
     }
 
     public void remove(Loot obj){
-        items.indexOf(obj);
         items.remove(obj);
     }
 }

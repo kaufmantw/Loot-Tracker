@@ -26,10 +26,11 @@ public class LogScene extends SceneManager{
         //this is a rough generation of the log
         for(Loot item : sm.items){
             Button btnRemove = new Button("Remove");
+            Label lblItem = new Label(item.getName() + " KC: " + item.getKc() + " Date: " + item.getTime());
             btnRemove.setOnAction(e ->{
                 sm.remove(item);
+                logpane.getChildren().removeAll(btnRemove, lblItem);
             });
-            Label lblItem = new Label(item.getName() + " KC: " + item.getKc() + " Date: " + item.getTime());
             logpane.getChildren().addAll(lblItem, btnRemove);
         }
 

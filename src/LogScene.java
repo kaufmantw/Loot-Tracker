@@ -8,6 +8,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+
+//TODO: this looks pretty ugly right now haha.
+//TODO: if we are to have statistical analsis (binomial probability), would it go here?
 public class LogScene extends SceneManager{
     
     public LogScene(SheetManager sm){

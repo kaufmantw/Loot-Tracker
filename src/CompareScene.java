@@ -32,10 +32,27 @@ import javafx.stage.Stage;
 
 public class CompareScene extends SceneManager {
 
+    XYChart.Series series = new XYChart.Series();
+
+    XYChart.Data[] chartData = new XYChart.Data[numItems];
+    PieChart.Data[] pieChartData = new PieChart.Data[numItems];
+
     ObservableList<PieChart.Data> pieChartList = FXCollections.observableArrayList();
     private int visibleGraph = 0;
     BarChart<String, Number> bc;
     PieChart pc;
+
+    int[] itemCounts;
+    boolean[] activeItems = new boolean[numItems];
+
+    // setting up options for chart
+    TextField killCountMin = new TextField();
+    TextField killCountMax = new TextField();
+
+    // checkboxes
+    CheckBox challengeBox = new CheckBox();
+    CheckBox soloBox = new CheckBox();
+    CheckBox personalBox = new CheckBox();
 
     public CompareScene(SheetManager sm) {
         super(sm);
@@ -55,7 +72,7 @@ public class CompareScene extends SceneManager {
         bc.setMinHeight(550);
         xAxis.setLabel("Item");
         yAxis.setLabel("Quantity");
-        XYChart.Series series = new XYChart.Series();
+
         series.setName("The stuff");
 
         pc = new PieChart(pieChartList);
@@ -91,16 +108,8 @@ public class CompareScene extends SceneManager {
         hbox.getChildren().add(gpane);
         hbox.getChildren().add(options);
 
-        // setting up options for chart
-        TextField killCountMin = new TextField();
-        TextField killCountMax = new TextField();
         killCountMin.setMaxWidth(75);
         killCountMax.setMaxWidth(75);
-
-        // checkboxes
-        CheckBox challengeBox = new CheckBox();
-        CheckBox soloBox = new CheckBox();
-        CheckBox personalBox = new CheckBox();
 
         // submit button
         Button clearButton = new Button("Clear Selections");
@@ -127,19 +136,11 @@ public class CompareScene extends SceneManager {
         options.add(toggleGraphButton, 1, 5);
 
         // active item storage for comparing
-        boolean[] activeItems = new boolean[numItems];
 
         // initializing the item counts corresponding to the buttons.
-        int[] itemCounts = new int[] { Dex.count, Arcane.count, Buckler.count, DHCB.count, Dinh.count, Ances_Hat.count,
+        itemCounts = new int[] { Dex.count, Arcane.count, Buckler.count, DHCB.count, Dinh.count, Ances_Hat.count,
                 Ances_Top.count, Ances_Bottom.count, Claws.count, Elder_Maul.count, Kodai_Insignia.count,
                 Twisted_Bow.count, Olmlet.count, Dust.count };
-
-        String[] itemNames = new String[] { Dex.NAME, Arcane.NAME, Buckler.NAME, DHCB.NAME, Dinh.NAME, Ances_Hat.NAME,
-                Ances_Top.NAME, Ances_Bottom.NAME, Claws.NAME, Elder_Maul.NAME, Kodai_Insignia.NAME,
-                Twisted_Bow.NAME, Olmlet.NAME, Dust.NAME };
-
-        XYChart.Data[] chartData = new XYChart.Data[numItems];
-        PieChart.Data[] pieChartData = new PieChart.Data[numItems];
 
         for (int i = 0; i < numItems; i++) {
             chartData[i] = new XYChart.Data<String, Integer>(itemNames[i] + " ", itemCounts[i]);
@@ -154,14 +155,35 @@ public class CompareScene extends SceneManager {
                     System.out.println(currentItem);
                     activeItems[currentItem] = true;
                     itemButtons[currentItem].setDisable(true);
-                    series.getData().add(chartData[currentItem]);
-                    pieChartList.add(pieChartData[currentItem]);
-                    for (int j = 0; j < activeItems.length; j++) {
-                        System.out.print(activeItems[j]);
-                    }
+                    prepareCounts();
+                    // series.getData().add(chartData[currentItem]);
+                    // pieChartList.add(pieChartData[currentItem]);
+                    // for (int j = 0; j < activeItems.length; j++) {
+                    // System.out.print(activeItems[j]);
+                    // }
                 }
             });
         }
+
+        killCountMax.setOnAction(e -> {
+            prepareCounts();
+        });
+
+        killCountMin.setOnAction(e -> {
+            prepareCounts();
+        });
+
+        soloBox.setOnAction(e -> {
+            prepareCounts();
+        });
+
+        personalBox.setOnAction(e -> {
+            prepareCounts();
+        });
+
+        challengeBox.setOnAction(e -> {
+            prepareCounts();
+        });
 
         // clearing chart and resetting buttons
         clearButton.setOnAction(e -> {
@@ -171,8 +193,10 @@ public class CompareScene extends SceneManager {
                 series.getData().removeAll(chartData[i]);
                 pieChartList.removeAll(pieChartData);
             }
+            series.getData().removeAll();
         });
 
+        // toggling bar and pie chart
         toggleGraphButton.setOnAction(e -> {
             toggleGraph();
             vbox.getChildren().remove(0);
@@ -199,10 +223,157 @@ public class CompareScene extends SceneManager {
         primaryStage.setResizable(false);
     }
 
+    // toggles between the bar and pie chart
     public void toggleGraph() {
         visibleGraph++;
         if (visibleGraph > 1) {
             visibleGraph = 0;
+        }
+    }
+
+    // ensures all method parameters are clear before actually making the count
+    // variables
+    private void prepareCounts() {
+        // both min and max kc provided
+        if (isValidInt(killCountMin.getText()) && isValidInt(killCountMax.getText())) {
+            updateCounts(Integer.parseInt(killCountMin.getText()), Integer.parseInt(killCountMax.getText()),
+                    personalBox.isSelected(), soloBox.isSelected(), challengeBox.isSelected());
+            // only min kc provided
+        } else if (isValidInt(killCountMin.getText())) {
+            int highestKc = 0;
+            for (int i = 0; i < sm.items.size(); i++) {
+                if (sm.items.get(i).getKc() > highestKc) {
+                    highestKc = sm.items.get(i).getKc();
+                }
+            }
+            updateCounts(Integer.parseInt(killCountMin.getText()), highestKc, personalBox.isSelected(),
+                    soloBox.isSelected(), challengeBox.isSelected());
+            // only max kc is provided
+        } else if (isValidInt(killCountMax.getText())) {
+            updateCounts(0, Integer.parseInt(killCountMax.getText()), personalBox.isSelected(), soloBox.isSelected(),
+                    challengeBox.isSelected());
+        } else {
+            // no kc bound is provided on either side
+            int highestKc = 0;
+            for (int i = 0; i < sm.items.size(); i++) {
+                if (sm.items.get(i).getKc() > highestKc) {
+                    highestKc = sm.items.get(i).getKc();
+                }
+            }
+            updateCounts(0, highestKc, personalBox.isSelected(), soloBox.isSelected(), challengeBox.isSelected());
+        }
+    }
+
+    private void updateCounts(int minKc, int maxKc, boolean isPersonal, boolean isSolo, boolean isCM) {
+        // resetting item counts
+        for (int i = 0; i < numItems; i++) {
+            itemCounts[i] = 0;
+        }
+        for (int i = 0; i < sm.items.size(); i++) {
+            Loot loot = sm.items.get(i);
+            // updating counts for items based on parameters provided in UI
+            if (loot.getKc() >= minKc && loot.getKc() <= maxKc && loot.isPersonal() == isPersonal
+                    && loot.isSolo() == isSolo && loot.isCM() == isCM) {
+
+                System.out.println(loot.getName());
+                switch (loot.getName()) {
+                    case Dex.NAME:
+                        if (activeItems[0] == true) {
+                            itemCounts[0]++;
+                            break;
+                        }
+                    case Arcane.NAME:
+                        if (activeItems[1] == true) {
+                            itemCounts[1]++;
+                            break;
+                        }
+                    case Buckler.NAME:
+                        if (activeItems[2] == true) {
+                            itemCounts[2]++;
+                            break;
+                        }
+                    case DHCB.NAME:
+                        if (activeItems[3] == true) {
+                            itemCounts[3]++;
+                            break;
+                        }
+                    case Dinh.NAME:
+                        if (activeItems[4] == true) {
+                            itemCounts[4]++;
+                            break;
+                        }
+                    case Ances_Hat.NAME:
+                        if (activeItems[5] == true) {
+                            itemCounts[5]++;
+                            break;
+                        }
+                    case Ances_Top.NAME:
+                        if (activeItems[6] == true) {
+                            itemCounts[6]++;
+                            break;
+                        }
+                    case Ances_Bottom.NAME:
+                        if (activeItems[7] == true) {
+                            itemCounts[7]++;
+                            break;
+                        }
+                    case Claws.NAME:
+                        if (activeItems[8] == true) {
+                            itemCounts[8]++;
+                            break;
+                        }
+                    case Elder_Maul.NAME:
+                        if (activeItems[9] == true) {
+                            itemCounts[9]++;
+                            break;
+                        }
+                    case Kodai_Insignia.NAME:
+                        if (activeItems[10] == true) {
+                            itemCounts[10]++;
+                            break;
+                        }
+                    case Twisted_Bow.NAME:
+                        if (activeItems[11] == true) {
+                            itemCounts[11]++;
+                            break;
+                        }
+                    case Olmlet.NAME:
+                        if (activeItems[12] == true) {
+                            itemCounts[12]++;
+                            break;
+                        }
+                    case Dust.NAME:
+                        if (activeItems[13] == true) {
+                            itemCounts[13]++;
+                            break;
+                        }
+                }
+            }
+        }
+        // resetting charts to handle the new data
+        series.getData().removeAll(chartData);
+        pieChartList.removeAll(pieChartData);
+        // recreating all data based on new parameters
+        for (int i = 0; i < numItems; i++) {
+            chartData[i] = new XYChart.Data<String, Integer>(itemNames[i] + " ", itemCounts[i]);
+            pieChartData[i] = new PieChart.Data(itemNames[i] + " - " + itemCounts[i], itemCounts[i]);
+            if (activeItems[i] == true) {
+                // displaying currently selected data
+                System.out.println("True");
+                series.getData().add(chartData[i]);
+                pieChartList.add(pieChartData[i]);
+            }
+
+        }
+
+    }
+
+    public boolean isValidInt(String value) {
+        try {
+            int num = Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 }

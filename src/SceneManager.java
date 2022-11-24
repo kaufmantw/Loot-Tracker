@@ -27,6 +27,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SceneManager {
+    String[] itemNames = new String[] { Dex.NAME, Arcane.NAME, Buckler.NAME, DHCB.NAME, Dinh.NAME, Ances_Hat.NAME,
+            Ances_Top.NAME, Ances_Bottom.NAME, Claws.NAME, Elder_Maul.NAME, Kodai_Insignia.NAME,
+            Twisted_Bow.NAME, Olmlet.NAME, Dust.NAME };
 
     // strings to initialize images
     String precedingPath = "\\images\\";
@@ -66,24 +69,23 @@ public class SceneManager {
         bpane.setCenter(spane);
 
         Button btnSave = new Button("Save");
-        btnSave.setOnAction(e ->{
-            try{
+        btnSave.setOnAction(e -> {
+            try {
                 this.sm.save();
-            }
-            catch(IOException f){
+            } catch (IOException f) {
                 f.getMessage();
             }
         });
         btnSave.setPadding(new Insets(5));
 
         Button btnList = new Button("Print List");
-        btnList.setOnAction(e ->{
+        btnList.setOnAction(e -> {
             this.sm.printList();
         });
         btnList.setPadding(new Insets(5));
 
         Button btnCount = new Button("Print Counts");
-        btnCount.setOnAction(e ->{
+        btnCount.setOnAction(e -> {
             this.sm.printCounts();
         });
         btnCount.setPadding(new Insets(5));

@@ -1,6 +1,9 @@
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+
+import java.util.ArrayList;
+
 import items.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -166,6 +169,7 @@ public class CompareScene extends SceneManager {
                 itemButtons[i].setDisable(false);
                 activeItems[i] = false;
                 series.getData().removeAll(chartData[i]);
+                pieChartList.removeAll(pieChartData);
             }
         });
 

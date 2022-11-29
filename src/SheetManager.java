@@ -219,6 +219,7 @@ public class SheetManager{
 
     //this method is used to generate data for
     //the compare charts.
+    //TODO: returnCount should probably incorporate a name for specification.
     public int returnCount(int lowerbound, int upperbound, boolean isCM, boolean isSolo, boolean isPersonal){
         int count = 0;
         for(Loot temp : items){

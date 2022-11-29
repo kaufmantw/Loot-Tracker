@@ -82,6 +82,24 @@ public class StatTracker{
 
     }
 
+    public double binomAbove(int total, int success, double rate){
+        double prob = 0;
+        for(int i = success+1;i<total;i++){
+            prob += binomProb(total, i, rate);
+        }
+        return prob;
+
+    }
+
+    public double binomBelow(int total, int success, double rate){
+        double prob = 0;
+        for(int i = success-1;i>=0;i--){
+            prob += binomProb(total, i, rate);
+        }
+        return prob;
+
+    }
+
     public int combination(int total, int success){
         int fact1 = factorial(total);
         int fact2 = factorial(success);
@@ -95,7 +113,7 @@ public class StatTracker{
             return 1;
         }
         else{
-            return factorial(number - 1) * number;
+            return number * factorial(number - 1);
         }
     }
 }

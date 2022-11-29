@@ -1,3 +1,6 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import items.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -53,24 +56,47 @@ public class LogScene extends SceneManager {
             // statspane.getChildren().add(numItemsExpected);
 
         }
-        Insets moreinfo = new Insets(5,0,15,0);
+        Insets moreinfo = new Insets(5,0,5,0);
 
         Label lblLastBow = new Label("Kc since last bow: " + stracker.kcSinceTbow());
-        lblLastBow.setPadding(moreinfo);
-        Label lblTotalDrops = new Label("Total drops: " + totalItems);
-        lblTotalDrops.setPadding(moreinfo);
+        lblLastBow.setPadding(new Insets(35,0,5,0));
         Label lblNumPersonal = new Label("Total personal: " + stracker.totalPersonal());
         lblNumPersonal.setPadding(moreinfo);
         Label lblNumSolo = new Label("Total solo: " + stracker.totalSolo());
         lblNumSolo.setPadding(moreinfo);
 
-        Label lblTestProb = new Label("Test probability: " + stracker.binomProb(totalItems,
-                                                            stracker.numOfItem(sm.items.get(sm.items.size()-1)), 
-                                                            sm.items.get(sm.items.size()-1).getRate()));
+        //the following section is for computing probability and formatting it
+        //in a more readable way.
+        double equalsProb = (stracker.binomProb(totalItems,
+            stracker.numOfItem(sm.items.get(sm.items.size()-1)), 
+            sm.items.get(sm.items.size()-1).getRate()))* 100;
+        BigDecimal equalsDec = new BigDecimal(Double.toString(equalsProb));
+        equalsDec = equalsDec.setScale(2, RoundingMode.HALF_UP);
+        Label lblTestProb = new Label("P(X = "+ stracker.numOfItem(sm.items.get(sm.items.size()-1)) + "): " + equalsDec + "%");
         lblTestProb.setPadding(moreinfo);
 
+        double aboveProb = (stracker.binomAbove(totalItems,
+            stracker.numOfItem(sm.items.get(sm.items.size()-1)), 
+            sm.items.get(sm.items.size()-1).getRate()))*100;
+        BigDecimal aboveDec = new BigDecimal(Double.toString(aboveProb));
+        aboveDec = aboveDec.setScale(2, RoundingMode.HALF_UP);
+        Label lblTestAbove = new Label("P(X > "+ stracker.numOfItem(sm.items.get(sm.items.size()-1)) + "): " + aboveDec + "%");
+        lblTestAbove.setPadding(moreinfo);
 
-        statspane.getChildren().addAll(lblLastBow, lblTotalDrops, lblNumPersonal, lblNumSolo, lblTestProb);
+        double belowProb = (stracker.binomBelow(totalItems,
+            stracker.numOfItem(sm.items.get(sm.items.size()-1)), 
+            sm.items.get(sm.items.size()-1).getRate()))* 100;
+        BigDecimal belowDec = new BigDecimal(Double.toString(belowProb));
+        belowDec = belowDec.setScale(2, RoundingMode.HALF_UP);   
+        Label lblTestBelow = new Label("P(X < "+ stracker.numOfItem(sm.items.get(sm.items.size()-1)) + "): " + belowDec + "%");
+        lblTestBelow.setPadding(moreinfo);
+
+
+        //combo box shenanigans
+
+        
+        statspane.getChildren().addAll(lblLastBow, lblNumPersonal, lblNumSolo, lblTestProb,
+                                        lblTestAbove, lblTestBelow);
         HBox mainHBox = new HBox(2);
         mainHBox.getChildren().add(scrollpane);
         mainHBox.getChildren().add(statspane);

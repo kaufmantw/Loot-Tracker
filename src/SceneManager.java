@@ -26,6 +26,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+//TODO: make this look good. find/make oldschool runescape assets for backgrounds.
+
 public class SceneManager {
 
     // strings to initialize images

@@ -1,4 +1,5 @@
 import items.*;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -50,6 +51,19 @@ public class LogScene extends SceneManager {
             // statspane.getChildren().add(numItemsExpected);
 
         }
+        Insets moreinfo = new Insets(15,0,15,0);
+
+        Label lblLastBow = new Label("Kc since last bow: " + kcSinceTbow());
+        lblLastBow.setPadding(moreinfo);
+        Label lblTotalDrops = new Label("Total drops: " + sm.items.size());
+        lblTotalDrops.setPadding(moreinfo);
+        Label lblNumPersonal = new Label("Total personal: " + sm.totalPersonal());
+        lblNumPersonal.setPadding(moreinfo);
+        Label lblNumSolo = new Label("Total solo: " + sm.totalSolo());
+        lblNumSolo.setPadding(moreinfo);
+
+
+        statspane.getChildren().addAll(lblLastBow, lblTotalDrops, lblNumPersonal, lblNumSolo);
         HBox mainHBox = new HBox(2);
         mainHBox.getChildren().add(scrollpane);
         mainHBox.getChildren().add(statspane);
@@ -106,9 +120,7 @@ public class LogScene extends SceneManager {
             startScene(primaryStage);
         });
 
-        Label lblLastBow = new Label("Kc since last bow: " + kcSinceTbow());
-
-        hbox.getChildren().addAll(btnReturn, lblLastBow);
+        hbox.getChildren().addAll(btnReturn);
         hbox.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(bpane, 600, 800);

@@ -205,40 +205,7 @@ public class SheetManager{
         return count;
     }
 
-    public int totalKc(){
-        Loot tempNorm = new Loot("", 5,0, false, false, false);
-        Loot tempCM = new Loot("", 5,0, false, false, false);
-        for (Loot temp : items){
-            if (temp.isCM()){
-                tempCM = temp;
-            }
-            else{
-                tempNorm = temp;
-            }
-        }
-        return tempNorm.getKc() + tempCM.getKc();
-    }
-
     public void remove(Loot obj){
         items.remove(obj);
-    }
-
-    public int totalPersonal(){
-        int counter = 0;
-        for(Loot item : items){
-            if(item.isPersonal())
-                counter++;
-        }
-        return counter;
-    }
-
-    public int totalSolo(){
-        int counter = 0;
-        for(Loot item : items){
-            if(item.isSolo())
-                counter++;
-        }
-        return counter;
-
     }
 }

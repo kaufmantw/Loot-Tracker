@@ -15,9 +15,11 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class LogScene extends SceneManager {
+    StatTracker stracker;
 
     public LogScene(SheetManager sm) {
         super(sm);
+        this.stracker = new StatTracker(sm.items);
     }
 
     public void logScene(Stage primaryStage) {
@@ -51,19 +53,24 @@ public class LogScene extends SceneManager {
             // statspane.getChildren().add(numItemsExpected);
 
         }
-        Insets moreinfo = new Insets(15,0,15,0);
+        Insets moreinfo = new Insets(5,0,15,0);
 
-        Label lblLastBow = new Label("Kc since last bow: " + kcSinceTbow());
+        Label lblLastBow = new Label("Kc since last bow: " + stracker.kcSinceTbow());
         lblLastBow.setPadding(moreinfo);
-        Label lblTotalDrops = new Label("Total drops: " + sm.items.size());
+        Label lblTotalDrops = new Label("Total drops: " + totalItems);
         lblTotalDrops.setPadding(moreinfo);
-        Label lblNumPersonal = new Label("Total personal: " + sm.totalPersonal());
+        Label lblNumPersonal = new Label("Total personal: " + stracker.totalPersonal());
         lblNumPersonal.setPadding(moreinfo);
-        Label lblNumSolo = new Label("Total solo: " + sm.totalSolo());
+        Label lblNumSolo = new Label("Total solo: " + stracker.totalSolo());
         lblNumSolo.setPadding(moreinfo);
 
+        Label lblTestProb = new Label("Test probability: " + stracker.binomProb(totalItems,
+                                                            stracker.numOfItem(sm.items.get(sm.items.size()-1)), 
+                                                            sm.items.get(sm.items.size()-1).getRate()));
+        lblTestProb.setPadding(moreinfo);
 
-        statspane.getChildren().addAll(lblLastBow, lblTotalDrops, lblNumPersonal, lblNumSolo);
+
+        statspane.getChildren().addAll(lblLastBow, lblTotalDrops, lblNumPersonal, lblNumSolo, lblTestProb);
         HBox mainHBox = new HBox(2);
         mainHBox.getChildren().add(scrollpane);
         mainHBox.getChildren().add(statspane);
@@ -129,18 +136,4 @@ public class LogScene extends SceneManager {
         primaryStage.setResizable(false);
 
     }
-
-    public int kcSinceTbow() {
-        Loot tempBow = new Twisted_Bow(0, false, false, false, "1999-11-22 15:53:03.6845859");
-        for (Loot item : sm.items) {
-            if ((item instanceof Twisted_Bow) &&
-                    item.stamp.after(tempBow.stamp)) {
-                tempBow = item;
-            }
-        }
-
-        return sm.totalKc() - tempBow.getKc();
-
-    }
-
 }

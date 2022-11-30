@@ -80,18 +80,6 @@ public class SceneManager {
         });
         btnSave.setPadding(new Insets(5));
 
-        Button btnList = new Button("Print List");
-        btnList.setOnAction(e -> {
-            this.sm.printList();
-        });
-        btnList.setPadding(new Insets(5));
-
-        Button btnCount = new Button("Print Counts");
-        btnCount.setOnAction(e -> {
-            this.sm.printCounts();
-        });
-        btnCount.setPadding(new Insets(5));
-
         cscene = new CompareScene(sm);
 
         // Button to swap to the comparison stage
@@ -124,12 +112,12 @@ public class SceneManager {
         Font font = Font.loadFont(
                 "file:bin\\fonts\\runescape_uf.ttf",
                 25);
-        Text welcome = new Text("Welcome to the loot tracker!");
+        Text welcome = new Text("Welcome to the Loot Tracker!");
         welcome.setFont(font);
         spane.getChildren().addAll(view, welcome);
 
         // Adding objects to scene and displaying scene
-        hbox.getChildren().addAll(btnCount, btnList, btCompare, btSubmit, btLog);
+        hbox.getChildren().addAll(btCompare, btSubmit, btLog);
         hbox.setAlignment(Pos.CENTER);
         topbox.getChildren().addAll(btnSave);
         topbox.setAlignment(Pos.TOP_LEFT);

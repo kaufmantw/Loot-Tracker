@@ -7,6 +7,7 @@ import items.*;
 public class Test{
     public static void main(String [] args)throws IOException{
         SheetManager sm = new SheetManager();
+        StatTracker stracker = new StatTracker(sm.items);
 
         //sm.add(new Claws(35, false, false));
         //sm.add(new Twisted_Bow(73, false, false));
@@ -33,10 +34,12 @@ public class Test{
         System.out.println("The fifth set of items has " + count + " entries.");
         */
 
-        Timestamp stamp = Timestamp.from(Instant.now());
-        System.out.println("The time is: " + stamp);
-        System.out.println("As a string: " + stamp.toString());
+        //Timestamp stamp = Timestamp.from(Instant.now());
+        //System.out.println("The time is: " + stamp);
+        //System.out.println("As a string: " + stamp.toString());
 
         //System.out.println("Testing getTime: " + stamp.getTime());
+        Loot obj = new Arcane(0, false, false, false);
+        System.out.println("Number of arcanes: " + stracker.numOfItem(obj));
     }
 }

@@ -2,10 +2,14 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import items.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -19,6 +23,23 @@ import javafx.stage.Stage;
 
 public class LogScene extends SceneManager {
     StatTracker stracker;
+    Loot [] lootChoices = {
+        new Dex(0, false, false, false),
+        new Arcane(0, false, false, false),
+        new Buckler(0, false, false, false),
+        new DHCB(0, false, false, false),
+        new Dinh(0, false, false, false),
+        new Ances_Hat(0, false, false, false),
+        new Ances_Top(0, false, false, false),
+        new Ances_Bottom(0, false, false, false),
+        new Claws(0, false, false, false),
+        new Elder_Maul(0, false, false, false),
+        new Kodai_Insignia(0, false, false, false),
+        new Twisted_Bow(0, false, false, false),
+        new Olmlet(0, false, false, false),
+        new Dust(0, false, false, false)
+    };
+    int totalItems = sm.items.size();
 
     public LogScene(SheetManager sm) {
         super(sm);
@@ -37,7 +58,6 @@ public class LogScene extends SceneManager {
         scrollpane.setContent(logpane);
 
         VBox statspane = new VBox();
-        int totalItems = sm.items.size();
         Label headerForStats = new Label("Total Items Collected: " + totalItems);
         headerForStats.setFont(new Font(15));
         statspane.getChildren().add(headerForStats);
@@ -65,38 +85,60 @@ public class LogScene extends SceneManager {
         Label lblNumSolo = new Label("Total solo: " + stracker.totalSolo());
         lblNumSolo.setPadding(moreinfo);
 
-        //the following section is for computing probability and formatting it
-        //in a more readable way.
-        double equalsProb = (stracker.binomProb(totalItems,
-            stracker.numOfItem(sm.items.get(sm.items.size()-1)), 
-            sm.items.get(sm.items.size()-1).getRate()))* 100;
-        BigDecimal equalsDec = new BigDecimal(Double.toString(equalsProb));
-        equalsDec = equalsDec.setScale(2, RoundingMode.HALF_UP);
-        Label lblTestProb = new Label("P(X = "+ stracker.numOfItem(sm.items.get(sm.items.size()-1)) + "): " + equalsDec + "%");
+        Label lblTestProb = new Label("P(X = n) = 0%");
         lblTestProb.setPadding(moreinfo);
 
-        double aboveProb = (stracker.binomAbove(totalItems,
-            stracker.numOfItem(sm.items.get(sm.items.size()-1)), 
-            sm.items.get(sm.items.size()-1).getRate()))*100;
-        BigDecimal aboveDec = new BigDecimal(Double.toString(aboveProb));
-        aboveDec = aboveDec.setScale(2, RoundingMode.HALF_UP);
-        Label lblTestAbove = new Label("P(X > "+ stracker.numOfItem(sm.items.get(sm.items.size()-1)) + "): " + aboveDec + "%");
+        Label lblTestAbove = new Label("P(X > n) = 0%");
         lblTestAbove.setPadding(moreinfo);
 
-        double belowProb = (stracker.binomBelow(totalItems,
-            stracker.numOfItem(sm.items.get(sm.items.size()-1)), 
-            sm.items.get(sm.items.size()-1).getRate()))* 100;
-        BigDecimal belowDec = new BigDecimal(Double.toString(belowProb));
-        belowDec = belowDec.setScale(2, RoundingMode.HALF_UP);   
-        Label lblTestBelow = new Label("P(X < "+ stracker.numOfItem(sm.items.get(sm.items.size()-1)) + "): " + belowDec + "%");
+        Label lblTestBelow = new Label("P(X < n) = 0%");
         lblTestBelow.setPadding(moreinfo);
-
-
+        //the following section is for computing probability and formatting it
+        //in a more readable way.
         //combo box shenanigans
 
-        
+        //TODO: Issue with removing items from list and messing up statistics
+        ChoiceBox<String> cbox = new ChoiceBox<>(FXCollections.observableArrayList(itemNames));
+        cbox.setValue(itemNames[0]);
+        cbox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>(){
+
+            public void changed(ObservableValue ov, Number value, Number new_value){
+                boolean found = false;
+                String newName = itemNames[new_value.intValue()];
+                for(Loot item : lootChoices){
+                    if(item.getName().equals(newName)){
+                        int numOfItem = stracker.numOfItem(item);
+                        System.out.println("num of items: " + numOfItem);
+
+                        double equalsProb = (stracker.binomProb(totalItems, numOfItem, item.getRate())) * 100;
+                        BigDecimal equalsDec = new BigDecimal(Double.toString(equalsProb));
+                        equalsDec = equalsDec.setScale(2, RoundingMode.HALF_UP);
+                        lblTestProb.setText("P(X = "+ numOfItem + ") = " + equalsDec + "%");
+
+                        double aboveProb = (stracker.binomAbove(totalItems, numOfItem, item.getRate())) * 100;
+                        BigDecimal aboveDec = new BigDecimal(Double.toString(aboveProb));
+                        aboveDec = aboveDec.setScale(2, RoundingMode.HALF_UP);
+                        lblTestAbove.setText("P(X > "+ numOfItem + ") = " + aboveDec + "%");
+
+                        double belowProb = (stracker.binomBelow(totalItems, numOfItem, item.getRate())) * 100;
+                        BigDecimal belowDec = new BigDecimal(Double.toString(belowProb));
+                        belowDec = belowDec.setScale(2, RoundingMode.HALF_UP);
+                        lblTestBelow.setText("P(X < "+ numOfItem + ") = " + belowDec + "%");
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found){
+                    System.out.println("This shouldn't happen.");
+                    lblTestProb.setText("P(X = n) = 0%");
+                    lblTestAbove.setText("P(X > n) = 0%");
+                    lblTestBelow.setText("P(X < n) = 0%");
+                }
+            }
+
+        });
         statspane.getChildren().addAll(lblLastBow, lblNumPersonal, lblNumSolo, lblTestProb,
-                                        lblTestAbove, lblTestBelow);
+                                        lblTestAbove, lblTestBelow,cbox);
         HBox mainHBox = new HBox(2);
         mainHBox.getChildren().add(scrollpane);
         mainHBox.getChildren().add(statspane);
@@ -140,6 +182,7 @@ public class LogScene extends SceneManager {
             // removing item from log when requested
             btnRemove.setOnAction(e -> {
                 sm.remove(item);
+                totalItems = sm.items.size();
                 logpane.getChildren().removeAll(logEntry);
             });
 

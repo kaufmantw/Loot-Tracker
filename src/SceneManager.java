@@ -112,7 +112,7 @@ public class SceneManager {
         Font font = Font.loadFont(
                 "file:bin\\fonts\\runescape_uf.ttf",
                 25);
-        Text welcome = new Text("Welcome to the loot tracker!");
+        Text welcome = new Text("Welcome to the Loot Tracker!");
         welcome.setFont(font);
         spane.getChildren().addAll(view, welcome);
 

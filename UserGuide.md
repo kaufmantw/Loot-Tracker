@@ -6,7 +6,9 @@ After tracking your drops, you have a few different ways of visualizing just how
 ## Main Menu
 Upon loading up the application, you will be greeted with a few different options. The Submit, Compare, and Log button all take you to different menus.
 The Submit button will take you to a scene for you to submit new drops as you get them. The Compare button will take you to a scene where you can visually compare
-the previous drops you have obtained with two different methods. The Log button takes the user to a scene where some general diagnostic information is held.![image](https://user-images.githubusercontent.com/112425400/205517987-ea217756-ffc5-49b4-a66b-74795802e194.png)
+the previous drops you have obtained with two different methods. The Log button takes the user to a scene where some general diagnostic information is held.
+
+![image](https://user-images.githubusercontent.com/112425400/205517987-ea217756-ffc5-49b4-a66b-74795802e194.png)
 
 
 ## Submit Menu

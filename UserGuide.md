@@ -37,3 +37,9 @@ This menu is a one-stop shop for general information. On the left side of the ap
 ## Saving
 At the top left of the main menu is a save button. Press this to save your changes to the database. If you saved something and change your mind you can undo it in the log scene with the item removal functionality. If you wish to look at your database directly, navigate to "APPLICATION_NAME\\bin\\sheets\\SaveSheet.csv", with APPLICATION_NAME being whatever name you saved this project as. I would not recommend editing this file unless you strictly follow the object format of 
 NAME, KC, isPERSONAL, isSOLO, isCM, TIMESTAMP. Adjusting this file haphazardly puts the program at risk so be cautious!
+
+## Capabilities and Limitations
+Our program is perfect (except when it isn't). Currently there is no direct way to completely clear the users database; users must click on each remove button in the Log Menu then save. Also the killcount fields in the Compare Menu don't change the display until a ToggleBox is clicked; these two functionalities shouldn't be linked in this way. However, overall the program functions as is required. Users can submit and save drops, then use the Log or Compare Menu to visualize their data in easily digestable ways.
+
+## Our information
+Mikey Hill () and Tim Kaufman (kaufmantw) collaborated on this project. Direct any questions you may have at either one of us. Thank you for using the Loot Tracker!

@@ -26,18 +26,18 @@ public class StatTracker{
     //returns the added kill counts for both challenge mode and
     //normal mode items.
     public int totalKc(){
-        Loot tempNorm = new Loot("", 5,0, false, false, false);
-        Loot tempCM = new Loot("", 5,0, false, false, false);
+        Loot tempNorm = new Loot("", 5,0, false, false, false,"2020-11-29 12:59:20.0186474");
+        Loot tempCM = new Loot("", 5,0, false, false, false,"2020-11-29 12:59:20.0186474");
         for (Loot temp : items){
-            if (temp.isCM()){
-                tempCM = temp;
+                if (temp.isCM() && temp.stamp.after(tempCM.stamp)){
+                    tempCM = temp;
+                }
+                else if (temp.stamp.after(tempNorm.stamp)){
+                    tempNorm = temp;
+                }
             }
-            else{
-                tempNorm = temp;
-            }
+            return tempNorm.getKc() + tempCM.getKc();
         }
-        return tempNorm.getKc() + tempCM.getKc();
-    }
 
     //returns the total # of personal items.
     public int totalPersonal(){

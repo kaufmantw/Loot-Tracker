@@ -16,4 +16,4 @@ An application to track loot from the Chambers of Xeric, a raid in the popular M
 ## Hours spent
 Tim spent anywhere from 20 to 25 hours working on the project, excluding any time thinking or stressing about the product away from the keyboard.
 
-Mikey spent x amount of time on the project. He will finish this comment before the due date.
+Mikey spent roughly 20 hours on the project, excluding UML documentation and other document creation, and practicing for the presentation.

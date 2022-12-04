@@ -42,4 +42,4 @@ NAME, KC, isPERSONAL, isSOLO, isCM, TIMESTAMP. Adjusting this file haphazardly p
 Our program is perfect (except when it isn't). Currently there is no direct way to completely clear the users database; users must click on each remove button in the Log Menu then save. Also the killcount fields in the Compare Menu don't change the display until a ToggleBox is clicked; these two functionalities shouldn't be linked in this way. However, overall the program functions as is required. Users can submit and save drops, then use the Log or Compare Menu to visualize their data in easily digestable ways.
 
 ## Our information
-Mikey Hill () and Tim Kaufman (kaufmantw) collaborated on this project. Direct any questions you may have at either one of us. Thank you for using the Loot Tracker!
+Mikey Hill (hillmichael1203) and Tim Kaufman (kaufmantw) collaborated on this project. Direct any questions you may have at either one of us. Thank you for using the Loot Tracker!

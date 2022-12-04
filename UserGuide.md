@@ -6,7 +6,8 @@ After tracking your drops, you have a few different ways of visualizing just how
 ## Main Menu
 Upon loading up the application, you will be greeted with a few different options. The Submit, Compare, and Log button all take you to different menus.
 The Submit button will take you to a scene for you to submit new drops as you get them. The Compare button will take you to a scene where you can visually compare
-the previous drops you have obtained with two different methods. The Log button takes the user to a scene where some general diagnostic information is held.
+the previous drops you have obtained with two different methods. The Log button takes the user to a scene where some general diagnostic information is held.![image](https://user-images.githubusercontent.com/112425400/205517987-ea217756-ffc5-49b4-a66b-74795802e194.png)
+
 
 ## Submit Menu
 This menu is how the user interacts with their drop database (a CSV file stored locally). On the top of the scene are instructions for how to submit, but this user
@@ -21,3 +22,7 @@ down on what you can see visually. The "Kill Count Range" shows items from a ran
 
 ## Log Scene
 This menu is a one-stop shop for general information. On the left side of the application is a list of all items in your database. Underneath each option is a "Remove" button, clicking it will remove the object from your data. On the upper right side of the application is a list of total items collected; this is useful as a quick glance at your data. Underneath these totals are some more general information such as the killcount since the last Twisted Bow, the total personal drops you have received, and the total number of solo drops you have received. Finally, beneath that information is some statistical analysis on the selected item. To change selections, press a new item on the ChoiceBox directly underneath the three binomial probabilities shown. At the bottom of the application is a button to return to the main menu.
+
+## Saving
+At the top left of the main menu is a save button. Press this to save your changes to the database. If you saved something and change your mind you can undo it in the log scene with the item removal functionality. If you wish to look at your database directly, navigate to "APPLICATION_NAME\\bin\\sheets\\SaveSheet.csv", with APPLICATION_NAME being whatever name you saved this project as. I would not recommend editing this file unless you strictly follow the object format of 
+NAME, KC, isPERSONAL, isSOLO, isCM, TIMESTAMP. Adjusting this file haphazardly puts the program at risk so be cautious!

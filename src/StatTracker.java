@@ -25,19 +25,19 @@ public class StatTracker{
     
     //returns the added kill counts for both challenge mode and
     //normal mode items.
-    public int totalKc(){
-        Loot tempNorm = new Loot("", 5,0, false, false, false);
-        Loot tempCM = new Loot("", 5,0, false, false, false);
+    private int totalKc(){
+        Loot tempNorm = new Loot("", 5,0, false, false, false,"2020-11-29 12:59:20.0186474");
+        Loot tempCM = new Loot("", 5,0, false, false, false,"2020-11-29 12:59:20.0186474");
         for (Loot temp : items){
-            if (temp.isCM()){
-                tempCM = temp;
+                if (temp.isCM() && temp.stamp.after(tempCM.stamp)){
+                    tempCM = temp;
+                }
+                else if (temp.stamp.after(tempNorm.stamp)){
+                    tempNorm = temp;
+                }
             }
-            else{
-                tempNorm = temp;
-            }
+            return tempNorm.getKc() + tempCM.getKc();
         }
-        return tempNorm.getKc() + tempCM.getKc();
-    }
 
     //returns the total # of personal items.
     public int totalPersonal(){
@@ -100,7 +100,7 @@ public class StatTracker{
 
     }
 
-    public int combination(int total, int success){
+    private int combination(int total, int success){
         int fact1 = factorial(total);
         int fact2 = factorial(success);
         int fact3 = factorial(total - success);
@@ -108,7 +108,7 @@ public class StatTracker{
         return (fact1 / (fact2 * fact3));
     }
 
-    public static int factorial(int number){
+    private static int factorial(int number){
         if(number == 0){
             return 1;
         }

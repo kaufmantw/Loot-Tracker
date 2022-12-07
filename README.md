@@ -20,3 +20,20 @@ No outside sources were used for collaboration, however various Geeks4Geeks arti
 Tim spent anywhere from 20 to 25 hours working on the project, excluding any time thinking or stressing about the product away from the keyboard.
 
 Mikey spent roughly 20 hours on the project, excluding UML documentation and other document creation, and practicing for the presentation.
+
+## Work Done
+Tim
+1. 100% of the SheetManager class, working with the CSV file(s)
+2. 100% of the StatTracker class, calculating things based off the ArrayList
+3. 100% of the Main Menu
+4. 50% of the Loot class and its subclasses
+5. 50% of the Log Scene
+6. 20% of the Compare Scene
+
+Mikey
+1. 100% of the Submit Scene
+2. 80% of the Compare Scene
+3. 50% of the Log Scene
+4. 50% of the Loot class and its subclasses
+
+While the itemized list is more in favor of Tim, some items within the list such as the Main Menu and Loot subclasses are not large contributions.

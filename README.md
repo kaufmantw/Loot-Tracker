@@ -13,6 +13,9 @@ An application to track loot from the Chambers of Xeric, a raid in the popular M
 2. The Log Scene's binomial probabilities don't add up to 100%. This is most likely due to rounding errors, or issues with doubles a little imprecise.
 3. Currently, users can input negative numbers for killcount values in the Submit Scene. This is an oversight and easily correctible in the future.
 
+## Debugging Collaboratos
+No outside sources were used for collaboration, however various Geeks4Geeks articles and JavaDocs were used for reference when learning syntax for different implementations.
+
 ## Hours spent
 Tim spent anywhere from 20 to 25 hours working on the project, excluding any time thinking or stressing about the product away from the keyboard.
 
